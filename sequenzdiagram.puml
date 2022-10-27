@@ -1,0 +1,4 @@
+@startuml
+actor PlayerA #red
+actor PlayerB #green
+@enduml

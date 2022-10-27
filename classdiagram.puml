@@ -1,0 +1,81 @@
+@startuml
+    
+Element *-- Card
+Card *-- Deck
+
+class User{
+   -int coins
+   -String username
+   -List<Card> cards
+   -Deck deck
+
+   +void selectDeck()
+   +void buyPackage()
+   +void tradeCards()
+}
+
+
+class Battle{
+
+    +{static}void battle(User u1, User u2)
+    -void monsterFight()
+    -void spellFights()
+    -void mixedFight()
+}
+
+
+
+
+abstract class Card{
+    #Element type
+    #String name
+    #final int DAMAGE
+
+    + {abstract}void attack()
+}
+
+class MonsterCard extends Card{
+ +void attack()
+}
+
+class SpellCard extends Card{
+ +void attack()
+}
+
+class Deck{
+    -List<Card>cards
+    +void selectCards(Stack<Card> cards)
+    +List<Card> getCards()
+}
+
+
+
+class Package{
+    - {static} final int CARD_COUNT
+    - {static} final int PACKAGE_COST
+
+    + Card openPackage()
+   
+}
+
+class Store{
+    +{static} Card buyPackage()
+    +{static} void tradeCards()
+}
+
+
+class CardFactory{
+    +{static} createCard()
+}
+
+enum Element{
+    FIRE
+    WATER
+    NORMAL
+}
+
+
+
+
+
+@enduml

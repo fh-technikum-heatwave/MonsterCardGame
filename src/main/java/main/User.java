@@ -1,31 +1,47 @@
 package main;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import main.card.Card;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Getter
+@Setter(AccessLevel.PRIVATE)
 public class User {
-    private int coins;
+
     private String username;
-    private List<Card> cards;
+    private List<Card> cards = new LinkedList<>(); //all Cards
+    private int coins = 20;
     private Deck deck = new Deck();
+    private List<Package> packages = new LinkedList<>();
 
-    public User(List<Card> cards) {
-
-        this.cards = cards;
+    public User(String username) {
+        setUsername(username);
     }
 
     public void selectDeck() {
         deck.selectCards(cards);
     }
 
-    public void buyPackage(int count){
-        // neue Instanz von Package anlegen, da man ja neue Karten kauft
-        // Die Packages in einer Liste speichern und dann öffnen
-
+    public void buyPackage(int count) {
+        for (int i = 0; i < count; i++) {
+            packages.add(new Package());
+        }
     }
 
-    public void tradeCards(){}
+    public void openPackages() {
+
+        for (var p : packages) {
+            var openCards = p.openPackage();
+            for (var card : openCards) {
+                cards.add(card);
+            }
+        }
+    }
+
+    public void tradeCards() {
+    }
 }
