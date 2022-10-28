@@ -4,55 +4,77 @@ import main.card.Card;
 
 public class Battle {
 
-    public static void battle(Card cardU1, Card cardU2) {
+    public static User battle(User u1, User u2) {
         //je nachdem was für ein Battle es ist wird die entsprechende Methode aufgerufen
-        spellFights(cardU1, cardU2);
+
+        Card user1Card = u1.getCards().get(0);
+        Card user2Card = u2.getCards().get(0);
+
+        System.out.println("User1: " + user1Card.getClass().getSimpleName() + " " + user1Card.getType());
+        System.out.println("User2: " + user2Card.getClass().getSimpleName() + " " + user2Card.getType());
+
+        if (user1Card.getClass().getSimpleName().contains("Spell") ||
+                user2Card.getClass().getSimpleName().contains("Spell")) {
+            return spellFights(u1, u2, user1Card, user2Card);
+        } else {
+            return monsterFight();
+        }
+
+
     }
 
 
-    private void monsterFight() {
+    private static User monsterFight() {
+        return null;
     }
 
-    private static void spellFights(User u1, User u) {
-        Element t1 = cardU1.getType();
-        Element t2 = cardU2.getType();
+    private static User spellFights(User u1, User u2, Card c1, Card c2) {
+        Element t1 = c1.getType();
+        Element t2 = c2.getType();
 
-        if (t1.equals(t2)) {
+        if (t1 == t2) {
+            return winnerOfSpellFights(u1, u2, c1.getDamage(), c2.getDamage());
         }
 
-        if (t1.equals(Element.FIRE) && t2.equals(Element.WATER)) {//t2 Wins
+        if (t1 == Element.FIRE && t2 == Element.WATER) {//t2 Wins
 
-
+            return winnerOfSpellFights(u1, u2, c1.getDamage() / 2.0, c2.getDamage() * 2);
         }
 
-        if (t1.equals(Element.WATER) && t2.equals(Element.FIRE)) {
+        if (t1 == Element.WATER && t2 == Element.FIRE) {
+            return winnerOfSpellFights(u1, u2, c1.getDamage() * 2.0, c2.getDamage() / 2.0);
         }
 
-        if (t1.equals(Element.NORMAL) && t2.equals(Element.FIRE)) {
+        if (t1 == Element.NORMAL && t2 == Element.FIRE) {
+            return winnerOfSpellFights(u1, u2, c1.getDamage() / 2.0, c2.getDamage() * 2);
         }
 
-        if (t1.equals(Element.FIRE) && t2.equals(Element.NORMAL)) {
+        if (t1 == Element.FIRE && t2 == Element.NORMAL) {
+
+            return winnerOfSpellFights(u1, u2, c1.getDamage() * 2.0, c2.getDamage() / 2.0);
         }
 
-        if (t1.equals(Element.WATER) && t2.equals(Element.NORMAL)) {
+        if (t1 == Element.WATER && t2 == Element.NORMAL) {
+            return winnerOfSpellFights(u1, u2, c1.getDamage() / 2.0, c2.getDamage() * 2);
         }
 
-        if (t1.equals(Element.NORMAL) && t2.equals(Element.WATER)) {
+        if (t1 == Element.NORMAL && t2 == Element.WATER) {
+            return winnerOfSpellFights(u1, u2, c1.getDamage() * 2.0, c2.getDamage() / 2.0);
         }
 
+        return null;
     }
 
     private void mixedFights() {
     }
 
-    public static Card winnerOfSpellFights(Card c1, Card c2, double damageC1, double damageC2) {
+    public static User winnerOfSpellFights(User u1, User u2, double damageC1, double damageC2) {
         if (damageC1 > damageC2) {
-            return  c1;
-
+            return u1;
         } else if (damageC1 < damageC2) {
-
+            return u2;
         } else {
-            //unentschieden
+            return null;
         }
     }
 

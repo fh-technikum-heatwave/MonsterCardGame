@@ -1,4 +1,5 @@
 package main;
+import lombok.Getter;
 import main.card.Card;
 
 import java.util.List;

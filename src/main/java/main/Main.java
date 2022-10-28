@@ -11,9 +11,19 @@ public class Main {
         u1.openPackages();
         u2.openPackages();
 
-        for (var card: u1.getCards()) {
-            System.out.println("card: "+ card.getClass().getSimpleName());
+        User winner = Battle.battle(u1, u2);
+
+
+        if (winner == null) {
+            System.out.println("No winner");
+        } else {
+            System.out.println("Der Gewinner ist " + winner.getUsername());
         }
+
+
+//        for (var card : u1.getCards()) {
+//            System.out.println("card: " + card.getClass().getSimpleName());
+//        }
 
     }
 }
