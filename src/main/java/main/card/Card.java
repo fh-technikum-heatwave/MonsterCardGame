@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import main.Element;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 @Getter
@@ -14,16 +17,24 @@ public abstract class Card {
     protected String name;
     protected double damage;
     private static Random random = new Random();
+    private List<String> monsterCardNames = Arrays.asList("Wizard", "Goblin", "Knight", "Dragon", "Ork", "Kraken", "Elves");
 
-    public Card() {
+    public Card(String name) {
+
+        if (name.equals("Monster")) {
+            Collections.shuffle(monsterCardNames);
+            setName(monsterCardNames.get(0));
+        } else {
+            setName(name);
+        }
+
         int rnd = random.nextInt(3);
-
         if (rnd == 0) {
             type = Element.WATER;
             damage = 100;
         } else if (rnd == 1) {
             type = Element.FIRE;
-            damage = 100 ;
+            damage = 100;
         } else {
             type = Element.NORMAL;
             damage = 100;

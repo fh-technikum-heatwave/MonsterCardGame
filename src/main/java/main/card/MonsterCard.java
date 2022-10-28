@@ -2,8 +2,15 @@ package main.card;
 
 import main.Element;
 
-public class MonsterCard extends Card{
-//    public MonsterCard(String name, double damage, Element type) {
-//        super(name, damage, type);
-//    }
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+public class MonsterCard extends Card {
+
+    public MonsterCard() {
+        super("Monster");
+    }
+
 }

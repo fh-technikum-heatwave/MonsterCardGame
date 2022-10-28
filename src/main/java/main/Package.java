@@ -14,7 +14,7 @@ import java.util.Random;
 public class Package {
     static final int CARD_COUNT = 5;
     static final int PACKAGE_COST = 5;
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     public List<Card> openPackage() {
         List<Card> cards = new LinkedList<>();

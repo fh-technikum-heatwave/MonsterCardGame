@@ -16,15 +16,38 @@ public class Battle {
         if (user1Card.getClass().getSimpleName().contains("Spell") ||
                 user2Card.getClass().getSimpleName().contains("Spell")) {
             return spellFights(u1, u2, user1Card, user2Card);
-        } else {
-            return monsterFight();
+        } else if (user1Card.getClass().getSimpleName().contains("Monster") ||
+                user2Card.getClass().getSimpleName().contains("Monster")) {
+            System.out.println("monster Fight");
+            return monsterFight(u1, u2, user1Card, user2Card);
         }
 
+
+        return null;
 
     }
 
 
-    private static User monsterFight() {
+    private static User monsterFight(User u1, User u2, Card c1, Card c2) {
+        String nameC1 = c1.getName();
+        String nameC2 = c2.getName();
+
+        if (nameC1.equals("Goblin") && nameC2.equals("Dragon")) {
+            return u2;
+        }
+        if (nameC1.equals("Dragon") && nameC2.equals("Dragon")) {
+            return u1;
+        }
+
+        if (nameC1.equals("Wizzard") && nameC2.equals("Ork")) {
+            return u1;
+        }
+
+        if (nameC1.equals("Ork") && nameC2.equals("Wizzard")) {
+            return u2;
+        }
+
+
         return null;
     }
 
@@ -66,9 +89,21 @@ public class Battle {
     }
 
     private void mixedFights() {
+
     }
 
-    public static User winnerOfSpellFights(User u1, User u2, double damageC1, double damageC2) {
+
+    private static User winner(User u1, User u2, double damageC1, double damageC2) {
+        if (damageC1 > damageC2) {
+            return u1;
+        } else if (damageC1 < damageC2) {
+            return u2;
+        } else {
+            return null;
+        }
+    }
+
+    private static User winnerOfSpellFights(User u1, User u2, double damageC1, double damageC2) {
         if (damageC1 > damageC2) {
             return u1;
         } else if (damageC1 < damageC2) {
