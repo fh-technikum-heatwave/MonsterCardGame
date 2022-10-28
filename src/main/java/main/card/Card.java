@@ -17,7 +17,7 @@ public abstract class Card {
     protected String name;
     protected double damage;
     private static Random random = new Random();
-    private List<String> monsterCardNames = Arrays.asList("Wizard", "Goblin", "Knight", "Dragon", "Ork", "Kraken", "Elves");
+    private List<String> monsterCardNames = Arrays.asList("Wizard", "Goblin", "Knight", "Dragon", "Ork", "Kraken", "Elve");
 
     public Card(String name) {
 
@@ -31,15 +31,14 @@ public abstract class Card {
         int rnd = random.nextInt(3);
         if (rnd == 0) {
             type = Element.WATER;
-            damage = 100;
         } else if (rnd == 1) {
             type = Element.FIRE;
-            damage = 100;
         } else {
             type = Element.NORMAL;
-            damage = 100;
         }
 
+//        damage = random.nextInt(101);
+        damage = 100;
     }
 
 //    public Card(String name, double damage, Element type) {
