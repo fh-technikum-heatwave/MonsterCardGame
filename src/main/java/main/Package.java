@@ -10,11 +10,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-
+@Getter(AccessLevel.PUBLIC)
 public class Package {
     static final int CARD_COUNT = 5;
     static final int PACKAGE_COST = 5;
     private static final Random random = new Random();
+
+    public Package(){}
 
     public List<Card> openPackage() {
         List<Card> cards = new LinkedList<>();

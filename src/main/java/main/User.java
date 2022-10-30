@@ -8,7 +8,7 @@ import main.card.Card;
 import java.util.LinkedList;
 import java.util.List;
 
-@Getter
+@Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PRIVATE)
 public class User {
 
@@ -16,6 +16,7 @@ public class User {
     private List<Card> cards = new LinkedList<>(); //all Cards
     private int coins = 20;
     private Deck deck = new Deck();
+    @Getter(AccessLevel.PRIVATE)
     private List<Package> packages = new LinkedList<>();
 
     public User(String username) {
@@ -33,12 +34,9 @@ public class User {
     }
 
     public void openPackages() {
-
         for (var p : packages) {
             var openCards = p.openPackage();
-            for (var card : openCards) {
-                cards.add(card);
-            }
+            cards.addAll(openCards);
         }
     }
 
