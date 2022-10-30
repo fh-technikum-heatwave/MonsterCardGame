@@ -9,10 +9,11 @@ import java.util.List;
 public class CardService extends Service {
     private User user;
 
-    public void login(String username) {
+    public User login(String username) {
         user = new User(username);
 
         System.out.println("User " + user.getUsername() + " logged in");
+        return user;
     }
 
 

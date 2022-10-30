@@ -1,5 +1,6 @@
 package main.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Setter;
 import main.rest.Controller.CardController;
@@ -20,16 +21,16 @@ public class App implements ServerApp {
     }
 
     @Override
-    public Response handleRequest(Request request) {
+    public Response handleRequest(Request request) throws JsonProcessingException {
 
 
         switch (request.getMethod()) {
             case GET: {
                 if (request.getPathname().contains("/login/")) {
                     String username = request.getPathname().split("/")[2];
-                    Response respone = this.cardController.login(username);
-                    System.out.println(respone);
-                    return respone;
+                    Response response = this.cardController.login(username);
+                    System.out.println(response);
+                    return response;
                 }
 
                 break;

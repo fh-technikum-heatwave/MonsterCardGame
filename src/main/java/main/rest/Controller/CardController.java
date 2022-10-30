@@ -22,16 +22,19 @@ public class CardController extends Controller {
 
 
     // GET /login/:username
-    public Response login(String username) {
+    public Response login(String username) throws JsonProcessingException {
 
         System.out.println(username);
 
-        getCardService().login(username);
+
+
+        User user = getCardService().login(username);
+        String cityDataJSON = getObjectMapper().writeValueAsString(user);
 
         return new Response(
                 HttpStatus.OK,
                 ContentType.JSON,
-                "{ \"data\": " + username + ", \"error\": null }"
+                "{ \"data\": " + cityDataJSON + ", \"error\": null }"
         );
 
     }
