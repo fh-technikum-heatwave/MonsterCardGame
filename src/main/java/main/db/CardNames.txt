@@ -1,0 +1,7 @@
+Wizard,
+Goblin,Dragon
+Knight,WaterSpell
+Dragon,FireElve
+Ork,Wizard
+Kraken,
+Elve,

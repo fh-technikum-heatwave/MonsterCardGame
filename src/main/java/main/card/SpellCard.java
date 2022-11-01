@@ -5,6 +5,6 @@ import main.Element;
 public class SpellCard extends Card{
 
     public SpellCard(){
-        super("SpellCard");
+        super("Spell");
     }
 }
