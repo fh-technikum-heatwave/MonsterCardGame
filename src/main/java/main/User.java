@@ -36,9 +36,7 @@ public class User {
 
         for (var p : packages) {
             var openCards = p.openPackage();
-            for (var card : openCards) {
-                cards.add(card);
-            }
+            cards.addAll(openCards);
         }
     }
 
