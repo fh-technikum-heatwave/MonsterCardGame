@@ -16,25 +16,51 @@ public class CardController extends Controller {
     @Getter(AccessLevel.PRIVATE)
     private CardService cardService;
 
+
     public CardController(CardService cardService) {
         setCardService(cardService);
     }
 
 
-    // GET /login/:username
     public Response login(String username) throws JsonProcessingException {
-
-        System.out.println(username);
-
         User user = getCardService().login(username);
-        String cityDataJSON = getObjectMapper().writeValueAsString(user);
+        String userDataJSON = getObjectMapper().writeValueAsString(user);
+
+        System.out.println(user.getCards());
 
         return new Response(
                 HttpStatus.OK,
                 ContentType.JSON,
-                "{ \"data\": " + cityDataJSON + ", \"error\": null }"
+                "{ \"data\": " + userDataJSON + ", \"error\": null }"
         );
-
     }
+
+    public Response openPackages(User user) throws JsonProcessingException {
+    getCardService().openPackages(user);
+        String userDataJSON = getObjectMapper().writeValueAsString(user);
+
+        return new Response(
+                HttpStatus.OK,
+                ContentType.JSON,
+                "{ \"data\": " + userDataJSON + ", \"error\": null }"
+        );
+    }
+
+    //POST
+    public Response buyPackage(int count, User user) throws JsonProcessingException {
+        getCardService().buyPackage(count, user);
+
+        String userDataJSON = getObjectMapper().writeValueAsString(user);
+
+        System.out.println("46");
+
+        return new Response(
+                HttpStatus.OK,
+                ContentType.JSON,
+                "{ \"data\": " + userDataJSON + ", \"error\": null }"
+        );
+    }
+
+
 
 }
