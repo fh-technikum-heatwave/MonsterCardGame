@@ -26,8 +26,6 @@ public class CardController extends Controller {
 
         System.out.println(username);
 
-
-
         User user = getCardService().login(username);
         String cityDataJSON = getObjectMapper().writeValueAsString(user);
 
