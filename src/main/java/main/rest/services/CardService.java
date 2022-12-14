@@ -16,14 +16,5 @@ public class CardService extends Service {
         return user;
     }
 
-    public void buyPackage(int count, User userr) {
-        userr.buyPackage(count);
-    }
-
-    public User openPackages(User userr) {
-
-        userr.openPackages();
-        return userr;
-    }
 
 }
