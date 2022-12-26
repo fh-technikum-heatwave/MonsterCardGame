@@ -1,5 +1,6 @@
 package main;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,16 +13,26 @@ import java.util.List;
 @Setter(AccessLevel.PRIVATE)
 public class User {
 
+    @JsonAlias({"name"})
     private String username;
-    private List<Card> cards = new LinkedList<>(); //all Cards
+    @JsonAlias({"coins"})
     private int coins = 20;
+    @JsonAlias({"password"})
+    private String password;
+
     private Deck deck = new Deck();
+
+    private List<Card> cards = new LinkedList<>(); //all Cards
     @Getter(AccessLevel.PRIVATE)
     private List<Package> packages = new LinkedList<>();
 
-    public User(String username) {
+    public User(){}
+
+    public User(String username, String password){
         setUsername(username);
+        setPassword(password);
     }
+
 
     public void selectDeck() {
         deck.selectCards(cards);

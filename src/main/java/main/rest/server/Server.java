@@ -3,25 +3,17 @@ package main.rest.server;
 import lombok.Getter;
 import lombok.Setter;
 import main.rest.App;
-import main.rest.http.ContentType;
-import main.rest.http.HttpStatus;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 @Getter
 @Setter
 public class Server {
-    private Request request;
-    private Response response;
+
     private ServerSocket serverSocket;
     private Socket clientSocket;
-    private PrintWriter outputStream;
-    private BufferedReader inputStream;
     private App app;
     private int port;
 
@@ -32,44 +24,12 @@ public class Server {
 
     public void start() throws IOException {
         setServerSocket(new ServerSocket(getPort()));
-
-        run();
-    }
-
-    private void run() {
         while (true) {
-            try {
-                setClientSocket(getServerSocket().accept());
-                setInputStream(new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
-                setRequest(new Request(getInputStream()));
-                setOutputStream(new PrintWriter(clientSocket.getOutputStream(), true));
+            setClientSocket(getServerSocket().accept());
 
-                if (request.getPathname() == null) {
-                    setResponse(new Response(
-                            HttpStatus.BAD_REQUEST,
-                            ContentType.TEXT,
-                            ""
-                    ));
-                } else {
-                    setResponse(getApp().handleRequest(request));
-                }
+            Thread t = new Thread(new RequestHandler(app, clientSocket));
+            t.start();
 
-                getOutputStream().write(getResponse().build());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (getOutputStream() != null) {
-                        getOutputStream().close();
-                    }
-                    if (getInputStream() != null) {
-                        getInputStream().close();
-                        getClientSocket().close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }
