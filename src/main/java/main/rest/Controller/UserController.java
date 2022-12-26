@@ -29,20 +29,85 @@ public class UserController extends Controller {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(body);
 
-        User user = new User(actualObj.get("Username").asText(),actualObj.get("Password").asText());
+        //id= -1 => the user currently does not have an id
+        User user = new User(-1, actualObj.get("Username").asText(), actualObj.get("Password").asText());
+
         try {
             userDao.create(user);
+            return new Response(
+                    HttpStatus.OK,
+                    ContentType.JSON,
+                    "{ \"data\": null" + ", \"error\": null }"
+            );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.JSON,
+                    "{ \"error\": \"This username already exists\", \"data\": null }"
+            );
         }
 
 
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + ", \"error\": null }"
-        );
     }
 
+    public Response getUserByUsername(String username) throws JsonProcessingException {
+        try {
+            User user = userDao.read(username);
+            String userDataJSON = getObjectMapper().writeValueAsString(user);
+
+            return new Response(
+                    HttpStatus.OK,
+                    ContentType.JSON,
+                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
+            );
+
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.JSON,
+                    "{ \"error\": \"User not found\", \"data\": null }"
+            );
+        }
+
+    }
+
+    public Response loginUser(String body) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(body);
+
+        String username = actualObj.get("Username").asText();
+        String pw = actualObj.get("Password").asText();
+
+        try {
+            User user = userDao.read(username);
+
+            if (pw.equals(user.getPassword())) {
+
+                return new Response(
+                        HttpStatus.OK,
+                        ContentType.TEXT,
+                        username + "-mtcgToken"
+                );
+            }else {
+                return new Response(
+                        HttpStatus.BAD_REQUEST,
+                        ContentType.TEXT,
+                        "Invalid username/password provided"
+                );
+            }
+
+        } catch (SQLException e) {
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.JSON,
+                    "{ \"error\": \"User not found\", \"data\": null }"
+            );
+        }
+
+    }
 
 }

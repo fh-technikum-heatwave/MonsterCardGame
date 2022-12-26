@@ -26,6 +26,8 @@ public class Request {
     private String params;
     private String contentType;
     private Integer contentLength;
+
+    private String authorizationToken;
     private String body = "";
 
     public Request(BufferedReader inputStream) {
@@ -36,17 +38,24 @@ public class Request {
 
         try {
             String line = inputStream.readLine();
-            System.out.println(line);
+            String secondLine = inputStream.readLine();
 
 
             if (line != null) {
+
+                System.out.println(line);
+                if (secondLine.contains("Bearer"))
+                    authorizationToken = getAuthorizationTokenFromInputLine(secondLine);
+
+
                 String[] splitFirstLine = line.split(" ");
                 Boolean hasParams = splitFirstLine[1].contains("?");
+                System.out.println(hasParams);
 
 
-                 method = getMethodFromInputLine(splitFirstLine);
-                 pathname = getPathnameFromInputLine(splitFirstLine, hasParams);
-                 params = getParamsFromInputLine(splitFirstLine, hasParams);
+                method = getMethodFromInputLine(splitFirstLine);
+                pathname = getPathnameFromInputLine(splitFirstLine, hasParams);
+                params = getParamsFromInputLine(splitFirstLine, hasParams);
 
 
                 String contentTypeFromInputLine = "";
@@ -89,7 +98,6 @@ public class Request {
         return splitFirstLine[1];
     }
 
-
     private String getParamsFromInputLine(String[] splittedFirstLine, Boolean hasParams) {
         if (hasParams) {
             return splittedFirstLine[1].split("\\?")[1];
@@ -104,5 +112,9 @@ public class Request {
 
     private String getContentTypeFromInputLine(String line) {
         return line.substring(CONTENT_TYPE.length());
+    }
+
+    private String getAuthorizationTokenFromInputLine(String line) {
+        return line.split(" ")[2];
     }
 }

@@ -45,6 +45,10 @@ public class App implements ServerApp {
         switch (request.getMethod()) {
             case GET: {
                 if (request.getPathname().contains("/users/")) {
+                    String username = request.getPathname().split("/")[2];
+
+                    System.out.println(request.getAuthorizationToken());
+                    return getUserController().getUserByUsername(username);
 
                 }
 
@@ -53,17 +57,16 @@ public class App implements ServerApp {
             }
 
             case POST: {
-                if (request.getPathname().contains("/users/")) {
-
-                    getUserController().register(request.getBody());
+                if (request.getPathname().contains("/users")) {
+                    return getUserController().register(request.getBody());
+                } else if (request.getPathname().contains("/sessions")) {
+                    return getUserController().loginUser(request.getBody());
                 }
-
-
                 break;
             }
 
 
-            case PUT:{
+            case PUT: {
                 if (request.getPathname().contains("/users/")) {
 
 

@@ -6,7 +6,7 @@ public interface DAO<T> {
 
     void create(T t) throws SQLException;
 
-    void read();
+    T read(String t) throws SQLException;
 
     void update();
 

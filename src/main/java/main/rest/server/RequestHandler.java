@@ -47,6 +47,7 @@ public class RequestHandler implements Runnable{
                 setResponse(getApp().handleRequest(request));
             }
 
+            System.out.println(getResponse());
             getOutputStream().write(getResponse().build());
         } catch (IOException e) {
             e.printStackTrace();

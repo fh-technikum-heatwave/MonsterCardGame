@@ -13,12 +13,14 @@ import java.util.List;
 @Setter(AccessLevel.PRIVATE)
 public class User {
 
-    @JsonAlias({"name"})
+    @JsonAlias({"username"})
     private String username;
     @JsonAlias({"coins"})
     private int coins = 20;
     @JsonAlias({"password"})
     private String password;
+    @JsonAlias({"id"})
+    private int id;
 
     private Deck deck = new Deck();
 
@@ -28,9 +30,10 @@ public class User {
 
     public User(){}
 
-    public User(String username, String password){
+    public User(int id, String username, String password){
         setUsername(username);
         setPassword(password);
+        setId(id);
     }
 
 
