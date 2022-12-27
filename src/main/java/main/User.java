@@ -21,11 +21,11 @@ public class User {
     private String password;
     @JsonAlias({"id"})
     private int id;
-
+    @JsonAlias({"deck"})
     private Deck deck = new Deck();
-
+    @JsonAlias({"cards"})
     private List<Card> cards = new LinkedList<>(); //all Cards
-    @Getter(AccessLevel.PRIVATE)
+    @JsonAlias({"packages"})
     private List<Package> packages = new LinkedList<>();
 
     public User(){}
@@ -34,26 +34,5 @@ public class User {
         setUsername(username);
         setPassword(password);
         setId(id);
-    }
-
-
-    public void selectDeck() {
-        deck.selectCards(cards);
-    }
-
-    public void buyPackage(int count) {
-        for (int i = 0; i < count; i++) {
-            packages.add(new Package());
-        }
-    }
-
-    public void openPackages() {
-        for (var p : packages) {
-            var openCards = p.openPackage();
-            cards.addAll(openCards);
-        }
-    }
-
-    public void tradeCards() {
     }
 }

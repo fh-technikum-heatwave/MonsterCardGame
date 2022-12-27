@@ -8,11 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MonsterCard extends Card {
-    private String weakness;
 
-    public MonsterCard() {
-        super("Monster");
-
+    public MonsterCard(String id, String name, int damage, int packageID) {
+        super(id, name, damage,packageID);
     }
+
+    public MonsterCard(){}
 
 }

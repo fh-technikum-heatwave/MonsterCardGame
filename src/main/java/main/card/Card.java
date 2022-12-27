@@ -1,5 +1,6 @@
 package main.card;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,58 +13,60 @@ import java.util.*;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 public abstract class Card {
+
+    @JsonAlias({"Typ"})
     protected Element type;
+    @JsonAlias({"Name"})
     protected String name;
-    protected double damage;
-    private static Random random = new Random();
-    private String weakness = "";
-    private Element typeWeakness;
-    private List<String> monsterCardNames = new LinkedList<>();
+    @JsonAlias({"Damage"})
+    protected int damage;
+    @JsonAlias({"Weakness"})
+    private String weakness; //Weakness against an other Card
+    @JsonAlias({"TypeWeakness"})
+    private Element typeWeakness; //Weakness agains an element
+    @JsonAlias({"Id"})
+    private String id;
+    @JsonAlias({"NameAndType"})
     private String nameAndType;
-
-    public Card(String name) {
-
-        int rnd = random.nextInt(3);
-        if (rnd == 0) {
-            type = Element.WATER;
-            typeWeakness = Element.NORMAL;
-        } else if (rnd == 1) {
-            type = Element.FIRE;
-            typeWeakness = Element.WATER;
-        } else {
-            type = Element.NORMAL;
-            typeWeakness = Element.FIRE;
-        }
-
-        try {
-            Scanner scanner = new Scanner(new FileInputStream("C:\\GitHub\\MonsterCardGame\\src\\main\\java\\main\\db\\CardNames.txt"));
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                monsterCardNames.add(line);
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        if (name.equals("Monster")) {
-            Collections.shuffle(monsterCardNames);
-            String[] parts = monsterCardNames.get(0).split(",");
-            if (parts.length > 1) {
-                setWeakness(parts[1]);
-            } else {
-                setWeakness("NO");
-            }
-            setName(parts[0]);
-        } else {
-            setName(name);
-        }
-
-        setNameAndType((type + "" + name).toLowerCase(Locale.ROOT));
+    @JsonAlias({"packageid"})
+    private int packageid;
 
 
-//      damage = random.nextInt(101);
-        damage = 100;
+    public Card() {
     }
 
+    public Card(String id, String name, int damage, int packageid) {
+
+        setId(id);
+        setName(name);
+        setDamage(damage);
+        setPackageid(packageid);
+        setNameAndType(name.toLowerCase(Locale.ROOT));
+
+        if (name.contains("Water")) {
+            setType(Element.WATER);
+            setTypeWeakness(Element.NORMAL);
+        } else if (name.contains("Fire")) {
+            setType(Element.FIRE);
+            setTypeWeakness(Element.WATER);
+        } else {
+            setType(Element.NORMAL);
+            setTypeWeakness(Element.FIRE);
+            setNameAndType((type + "" + name).toLowerCase(Locale.ROOT));
+        }
+
+        //Set Weakness of certain Cards
+        if (name.contains("Goblin")) {
+            weakness = "Dragon";
+        } else if (name.contains("Knight")) {
+            weakness = "WaterSpell";
+        } else if (name.contains("Dragon")) {
+            weakness = "FireElve";
+        } else if (name.contains("Ork")) {
+            weakness = "Wizard";
+        } else {
+            weakness = "NO";
+        }
+
+    }
 }

@@ -1,5 +1,6 @@
 package main;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,20 +12,17 @@ import java.util.List;
 import java.util.Random;
 
 @Getter(AccessLevel.PUBLIC)
+@Setter(AccessLevel.PRIVATE)
 public class Package {
-    static final int CARD_COUNT = 5;
-    static final int PACKAGE_COST = 5;
-    private static final Random random = new Random();
+    @JsonAlias({"cost"})
+    final int PACKAGE_COST = 5;
+    @JsonAlias({"packageid"})
+    private String id;
 
-    public Package(){}
+    public Package(){
+    }
 
-    public List<Card> openPackage() {
-        List<Card> cards = new LinkedList<>();
-        for (int i = 0; i < CARD_COUNT; i++) {
-            Card card = CardFactory.createCard(random.nextInt(2));
-            cards.add(card);
-        }
-
-        return cards;
+    public Package(String id){
+        setId(id);
     }
 }

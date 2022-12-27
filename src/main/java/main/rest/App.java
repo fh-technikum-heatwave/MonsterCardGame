@@ -1,34 +1,29 @@
 package main.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.User;
+import main.daos.CardDao;
 import main.daos.UserDao;
 import main.rest.Controller.CardController;
-import main.rest.Controller.Controller;
 import main.rest.Controller.UserController;
-import main.rest.http.HttpStatus;
 import main.rest.server.Request;
 import main.rest.server.Response;
 import main.rest.server.ServerApp;
-import main.rest.services.CardService;
 import main.rest.services.DataBaseService;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
 @Setter(AccessLevel.PRIVATE)
 @Getter(AccessLevel.PRIVATE)
 public class App implements ServerApp {
 
     @Setter(AccessLevel.PRIVATE)
-    private UserController UserController;
+    private UserController userController;
+    private CardController cardController;
     private Connection connection;
 
     public App() {
@@ -37,11 +32,12 @@ public class App implements ServerApp {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        UserController = new UserController(new UserDao(getConnection()));
+        userController = new UserController(new UserDao(getConnection()));
+        cardController = new CardController(new CardDao(getConnection()));
     }
 
     @Override
-    public Response handleRequest(Request request) throws JsonProcessingException {
+    public Response handleRequest(Request request) throws IOException {
         switch (request.getMethod()) {
             case GET: {
                 if (request.getPathname().contains("/users/")) {
@@ -49,6 +45,8 @@ public class App implements ServerApp {
 
                     System.out.println(request.getAuthorizationToken());
                     return getUserController().getUserByUsername(username);
+
+                } else if (request.getPathname().contains("/cards")) {
 
                 }
 
@@ -61,6 +59,9 @@ public class App implements ServerApp {
                     return getUserController().register(request.getBody());
                 } else if (request.getPathname().contains("/sessions")) {
                     return getUserController().loginUser(request.getBody());
+                } else if (request.getPathname().contains("/packages")) {
+
+                    getCardController().createPackageWithNewCards(request.getBody());
                 }
                 break;
             }
