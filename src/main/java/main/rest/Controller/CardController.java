@@ -39,7 +39,7 @@ public class CardController extends Controller {
         return null;
     }
 
-    public void createPackageWithNewCards(String body) throws JsonProcessingException {
+    public Response createPackageWithNewCards(String body, String packageId) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(body);
 
@@ -49,18 +49,32 @@ public class CardController extends Controller {
             for (var jsonObj : actualObj) {
                 Card c;
                 if (jsonObj.get("Name").asText().contains("Spell")) {
-                    c = new SpellCard(jsonObj.get("Id").toString(), jsonObj.get("Name").toString(), jsonObj.get("Damage").asInt(), 1);
+                    c = new SpellCard(jsonObj.get("Id").asText(), jsonObj.get("Name").asText(), jsonObj.get("Damage").asInt(), packageId);
                 } else {
-                    c = new MonsterCard(jsonObj.get("Id").toString(), jsonObj.get("Name").toString(), jsonObj.get("Damage").asInt(), 1);
+                    c = new MonsterCard(jsonObj.get("Id").asText(), jsonObj.get("Name").asText(), jsonObj.get("Damage").asInt(), packageId);
                 }
                 try {
-                    cardDao.create(c);
 
+                    cardDao.create(c);
                 } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                    return new Response(
+                            HttpStatus.BAD_REQUEST,
+                            ContentType.JSON,
+                            "{ \"error\": \"Card already exists\", \"data\": null }"
+                    );
                 }
             }
         }
+        return new Response(
+                HttpStatus.OK,
+                ContentType.TEXT,
+                "Cards successfully created"
+        );
+    }
+
+
+    public void getUserCard(String username){
+
     }
 
 

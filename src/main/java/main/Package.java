@@ -5,11 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.card.Card;
-import main.card.MonsterCard;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PRIVATE)
@@ -18,11 +16,17 @@ public class Package {
     final int PACKAGE_COST = 5;
     @JsonAlias({"packageid"})
     private String id;
+    @JsonAlias({"cards"})
+    private List<Card> cards= new LinkedList<>();
 
     public Package(){
     }
 
     public Package(String id){
+        setId(id);
+    }
+    public Package(String id, List<Card>cards){
+        setCards(cards);
         setId(id);
     }
 }

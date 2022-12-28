@@ -23,19 +23,34 @@ public abstract class Card {
     @JsonAlias({"Weakness"})
     private String weakness; //Weakness against an other Card
     @JsonAlias({"TypeWeakness"})
-    private Element typeWeakness; //Weakness agains an element
+    private Element typeWeakness; //Weakness against an element
     @JsonAlias({"Id"})
     private String id;
     @JsonAlias({"NameAndType"})
     private String nameAndType;
     @JsonAlias({"packageid"})
-    private int packageid;
+    private String packageid;
+    @JsonAlias({"packageid"})
+    private String userID;
 
 
     public Card() {
     }
 
-    public Card(String id, String name, int damage, int packageid) {
+    public Card(Element type, String name, int damage, String weakness, Element typeWeakness,
+                String id, String nameAndType, String packageid, String userID) {
+        this.type = type;
+        this.name = name;
+        this.damage = damage;
+        this.weakness = weakness;
+        this.typeWeakness = typeWeakness;
+        this.id = id;
+        this.nameAndType = nameAndType;
+        this.packageid = packageid;
+        this.userID = userID;
+    }
+
+    public Card(String id, String name, int damage, String packageid) {
 
         setId(id);
         setName(name);
@@ -67,6 +82,13 @@ public abstract class Card {
         } else {
             weakness = "NO";
         }
+    }
 
+    public void changePackageId(String packageid) {
+        setPackageid(packageid);
+    }
+
+    public void changeUserId(String userID) {
+        setUserID(userID);
     }
 }

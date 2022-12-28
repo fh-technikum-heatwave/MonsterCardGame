@@ -8,7 +8,10 @@ public enum HttpStatus {
     OK(200, "OK"),
     CREATED(201, "CREATED"),
     BAD_REQUEST(400, "Bad Request"),
+    Unauthorized(401, "Unauthorized"),
+    Forbidden(401, "Forbidden"),
     NOT_FOUND(404, "Not Found"),
+    Conflict(409, "Conflict"),
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
     @Getter

@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
@@ -24,14 +25,20 @@ public class UserDao implements DAO<User> {
     @Override
     public void create(User user) throws SQLException {
 
-        String query = "INSERT INTO users (username,password,coins) VALUES (?,?,?)";
+        String query = "INSERT INTO users (username,password,coins, UserId) VALUES (?,?,?,?)";
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, user.getUsername());
         stmt.setString(2, user.getPassword());
         stmt.setInt(3, user.getCoins());
+        stmt.setString(4, user.getId());
         stmt.execute();
 
+    }
+
+    @Override
+    public List<User> getAll() {
+        return null;
     }
 
     @Override
@@ -42,19 +49,19 @@ public class UserDao implements DAO<User> {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()){
-            return new User(rs.getInt(1), rs.getString(2), rs.getString(3));
+            return new User(rs.getString(1), rs.getString(2), rs.getString(3));
         }
 
         return null;
     }
 
     @Override
-    public void update() {
+    public void update(User user) {
 
     }
 
     @Override
-    public void delete() {
+    public void delete(String id) {
 
     }
 }

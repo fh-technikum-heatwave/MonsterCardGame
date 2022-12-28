@@ -20,7 +20,7 @@ public class User {
     @JsonAlias({"password"})
     private String password;
     @JsonAlias({"id"})
-    private int id;
+    private String id;
     @JsonAlias({"deck"})
     private Deck deck = new Deck();
     @JsonAlias({"cards"})
@@ -30,7 +30,7 @@ public class User {
 
     public User(){}
 
-    public User(int id, String username, String password){
+    public User(String id, String username, String password){
         setUsername(username);
         setPassword(password);
         setId(id);

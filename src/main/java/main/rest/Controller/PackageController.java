@@ -8,6 +8,7 @@ import main.daos.CardDao;
 import main.daos.PackageDao;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class PackageController extends Controller{
     @Setter(AccessLevel.PRIVATE)
@@ -20,7 +21,14 @@ public class PackageController extends Controller{
     }
 
 
-    public void createPackage() throws SQLException {
-        packageDao.create(new Package());
+    public String createPackage()  {
+        UUID uuid = UUID.randomUUID();
+        try {
+            packageDao.create(new Package(uuid.toString()));
+        } catch (SQLException throwables) {
+            return "";
+        }
+
+        return uuid.toString();
     }
 }

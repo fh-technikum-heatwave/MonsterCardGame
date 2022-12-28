@@ -1,13 +1,17 @@
 package main.rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.daos.CardDao;
+import main.daos.PackageDao;
 import main.daos.UserDao;
 import main.rest.Controller.CardController;
+import main.rest.Controller.UserPackageController;
+import main.rest.Controller.PackageController;
 import main.rest.Controller.UserController;
+import main.rest.http.ContentType;
+import main.rest.http.HttpStatus;
 import main.rest.server.Request;
 import main.rest.server.Response;
 import main.rest.server.ServerApp;
@@ -24,6 +28,8 @@ public class App implements ServerApp {
     @Setter(AccessLevel.PRIVATE)
     private UserController userController;
     private CardController cardController;
+    private PackageController packageController;
+    private UserPackageController userCardController;
     private Connection connection;
 
     public App() {
@@ -34,6 +40,8 @@ public class App implements ServerApp {
         }
         userController = new UserController(new UserDao(getConnection()));
         cardController = new CardController(new CardDao(getConnection()));
+        packageController = new PackageController(new PackageDao(getConnection()));
+        userCardController = new UserPackageController(new PackageDao(getConnection()), new CardDao(getConnection()), new UserDao(getConnection()));
     }
 
     @Override
@@ -59,9 +67,23 @@ public class App implements ServerApp {
                     return getUserController().register(request.getBody());
                 } else if (request.getPathname().contains("/sessions")) {
                     return getUserController().loginUser(request.getBody());
+                } else if (request.getPathname().contains("/transactions/packages")) {
+                    userCardController.buyPackage();
+
+
                 } else if (request.getPathname().contains("/packages")) {
 
-                    getCardController().createPackageWithNewCards(request.getBody());
+                    String packageId = getPackageController().createPackage();
+
+                    if (!packageId.isEmpty()) {
+                        return getCardController().createPackageWithNewCards(request.getBody(), packageId);
+                    } else {
+                        return new Response(
+                                HttpStatus.BAD_REQUEST,
+                                ContentType.JSON,
+                                "{ \"error\": \"Package could not be Created\", \"data\": null }"
+                        );
+                    }
                 }
                 break;
             }

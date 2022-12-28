@@ -14,6 +14,7 @@ import main.rest.http.HttpStatus;
 import main.rest.server.Response;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
@@ -28,9 +29,10 @@ public class UserController extends Controller {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(body);
+        UUID uuid = UUID.randomUUID();
 
         //id= -1 => the user currently does not have an id
-        User user = new User(-1, actualObj.get("Username").asText(), actualObj.get("Password").asText());
+        User user = new User(uuid.toString(), actualObj.get("Username").asText(), actualObj.get("Password").asText());
 
         try {
             userDao.create(user);
