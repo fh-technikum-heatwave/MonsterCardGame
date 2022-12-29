@@ -73,8 +73,25 @@ public class CardController extends Controller {
     }
 
 
-    public void getUserCard(String username){
+    public Response getUserCard(String userID) {
+        try {
+            List<Card> card = cardDao.getByUserdID(userID);
 
+            String dataJSON = getObjectMapper().writeValueAsString(card);
+
+            return new Response(
+                    HttpStatus.OK,
+                    ContentType.JSON,
+                    "{ \"data\": " + dataJSON + ", \"error\": null }"
+            );
+
+        } catch (SQLException | JsonProcessingException throwables) {
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.TEXT,
+                    "Could not get Cards"
+            );
+        }
     }
 
 

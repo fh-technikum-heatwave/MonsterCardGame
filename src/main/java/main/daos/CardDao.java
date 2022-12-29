@@ -3,6 +3,7 @@ package main.daos;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import main.Deck;
 import main.Element;
 import main.User;
 import main.card.Card;
@@ -98,9 +99,42 @@ public class CardDao implements DAO<Card> {
     }
 
 
+    public boolean updateDeckID(String cardid, String deckid) throws SQLException {
+        String query = "UPDATE card SET deckid = ? WHERE cardid = ?";
+
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(1, deckid);
+        stmt.setString(2,cardid);
+        return stmt.execute();
+    }
+
+
     @Override
     public void delete(String id) {
 
+    }
+
+    public List<Card> getByUserdID(String userID) throws SQLException {
+        List<Card> cards = new LinkedList<>();
+        String query = "select * from card where userid = ?";
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(1, userID);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String name = rs.getString(2);
+            if (name.contains("Spell")) {
+                cards.add(new SpellCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
+                        Element.valueOf(rs.getString(6)), rs.getString(1),
+                        rs.getString(7), rs.getString(8), rs.getString(9)));
+            } else {
+                cards.add(new MonsterCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
+                        Element.valueOf(rs.getString(6)), rs.getString(1),
+                        rs.getString(7), rs.getString(8), rs.getString(9)));
+            }
+        }
+
+        return cards;
     }
 
 }

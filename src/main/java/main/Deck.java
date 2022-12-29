@@ -1,22 +1,27 @@
 package main;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import main.card.Card;
 
 import java.util.List;
 import java.util.Stack;
 
+@Getter
+@Setter(AccessLevel.PRIVATE)
 public class Deck {
-    private List<Card> cards;
+    @JsonAlias({"userid"})
+    private String userId;
+    @JsonAlias({"deckid"})
+    private String deckId;
 
-
-    public void selectCards(List<Card> cards) {
-        //Logik um die Karten anzuzeigen bzw. in einem Deck zu speichern,
-        //hier wird der User die Möglichkeit haben seine besten Karten für das Deck auszuwählen
+    public Deck() {
     }
 
-    public List<Card> getDeckCards() {
-        //Logik um abzufragen ob die karten des Decks schon zugewiesen sind
-
-       return cards;
+    public Deck(String deckId, String userId) {
+        setDeckId(deckId);
+        setUserId(userId);
     }
 }

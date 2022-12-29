@@ -63,18 +63,14 @@ public class UserController extends Controller {
                     "{ \"data\": " + userDataJSON + ", \"error\": null }"
             );
 
-
         } catch (SQLException e) {
-
             System.out.println(e);
-
             return new Response(
                     HttpStatus.BAD_REQUEST,
                     ContentType.JSON,
                     "{ \"error\": \"User not found\", \"data\": null }"
             );
         }
-
     }
 
     public Response loginUser(String body) throws JsonProcessingException {

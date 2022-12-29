@@ -4,12 +4,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.daos.CardDao;
+import main.daos.DeckDao;
 import main.daos.PackageDao;
 import main.daos.UserDao;
-import main.rest.Controller.CardController;
-import main.rest.Controller.UserPackageController;
-import main.rest.Controller.PackageController;
-import main.rest.Controller.UserController;
+import main.rest.Controller.*;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
 import main.rest.server.Request;
@@ -20,6 +18,7 @@ import main.rest.services.DataBaseService;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.UUID;
 
 @Setter(AccessLevel.PRIVATE)
 @Getter(AccessLevel.PRIVATE)
@@ -30,6 +29,7 @@ public class App implements ServerApp {
     private CardController cardController;
     private PackageController packageController;
     private UserPackageController userCardController;
+    private DeckCardController deckCardController;
     private Connection connection;
 
     public App() {
@@ -42,6 +42,7 @@ public class App implements ServerApp {
         cardController = new CardController(new CardDao(getConnection()));
         packageController = new PackageController(new PackageDao(getConnection()));
         userCardController = new UserPackageController(new PackageDao(getConnection()), new CardDao(getConnection()), new UserDao(getConnection()));
+        deckCardController = new DeckCardController(new DeckDao(getConnection()), new CardDao(getConnection()));
     }
 
     @Override
@@ -55,7 +56,9 @@ public class App implements ServerApp {
                     return getUserController().getUserByUsername(username);
 
                 } else if (request.getPathname().contains("/cards")) {
+                    String id = "099a034a-30d4-4361-830a-4263356d35e5";
 
+                    return getCardController().getUserCard(id);
                 }
 
 
@@ -93,6 +96,8 @@ public class App implements ServerApp {
                 if (request.getPathname().contains("/users/")) {
 
 
+                } else if (request.getPathname().contains("/decks")) {
+                    return deckCardController.createDeck("099a034a-30d4-4361-830a-4263356d35e5", request.getBody());
                 }
             }
 

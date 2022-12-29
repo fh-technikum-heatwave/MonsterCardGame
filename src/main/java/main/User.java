@@ -21,8 +21,6 @@ public class User {
     private String password;
     @JsonAlias({"id"})
     private String id;
-    @JsonAlias({"deck"})
-    private Deck deck = new Deck();
     @JsonAlias({"cards"})
     private List<Card> cards = new LinkedList<>(); //all Cards
     @JsonAlias({"packages"})
