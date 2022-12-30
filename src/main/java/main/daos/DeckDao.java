@@ -3,7 +3,7 @@ package main.daos;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.Deck;
+import main.model.Deck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,13 +21,13 @@ public class DeckDao implements DAO<Deck> {
     }
 
     @Override
-    public void create(Deck deck) throws SQLException {
+    public boolean create(Deck deck) throws SQLException {
         String query = "INSERT INTO deck (deckid,userid) VALUES (?,?)";
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, deck.getDeckId());
         stmt.setString(2, deck.getUserId());
-        stmt.execute();
+       return stmt.execute();
 
     }
 

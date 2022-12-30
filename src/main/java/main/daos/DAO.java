@@ -6,7 +6,7 @@ import java.util.List;
 public interface DAO<T> {
 
 
-    void create(T t) throws SQLException;
+    boolean create(T t) throws SQLException;
 
     List<T> getAll() throws SQLException;
 

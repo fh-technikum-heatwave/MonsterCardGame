@@ -3,12 +3,10 @@ package main.daos;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.Deck;
 import main.Element;
-import main.User;
-import main.card.Card;
-import main.card.MonsterCard;
-import main.card.SpellCard;
+import main.model.card.Card;
+import main.model.card.MonsterCard;
+import main.model.card.SpellCard;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,8 +27,12 @@ public class CardDao implements DAO<Card> {
     }
 
     @Override
-    public void create(Card card) throws SQLException {
+    public boolean create(Card card) throws SQLException {
         String query = "INSERT INTO card (cardid,name,damage,typ,weakness,typeweakness,nameandtype,packageid) VALUES (?,?,?,?,?,?,?,?)";
+
+        if (card.getName().contains("Spell")) {
+
+        }
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, card.getId());
@@ -40,8 +42,8 @@ public class CardDao implements DAO<Card> {
         stmt.setString(5, card.getWeakness());
         stmt.setString(6, card.getTypeWeakness().toString());
         stmt.setString(7, card.getNameAndType());
-        stmt.setString(8, card.getPackageid());
-        stmt.execute();
+        stmt.setString(8, card.getPackageId());
+       return stmt.execute();
     }
 
     @Override
@@ -52,18 +54,18 @@ public class CardDao implements DAO<Card> {
         PreparedStatement stmt = getConnection().prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            String name = rs.getString(2);
-            if (name.contains("Spell")) {
-                cards.add(new SpellCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-                        Element.valueOf(rs.getString(6)), rs.getString(1),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
-            } else {
-                cards.add(new MonsterCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-                        Element.valueOf(rs.getString(6)), rs.getString(1),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
-            }
-        }
+//        while (rs.next()) {
+//            String name = rs.getString(2);
+//            if (name.contains("Spell")) {
+//                cards.add(new SpellCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
+//                        Element.valueOf(rs.getString(6)), rs.getString(1),
+//                        rs.getString(7), rs.getString(8), rs.getString(9)));
+//            } else {
+//                cards.add(new MonsterCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
+//                        Element.valueOf(rs.getString(6)), rs.getString(1),
+//                        rs.getString(7), rs.getString(8), rs.getString(9)));
+//            }
+//        }
 
         return cards;
     }
@@ -83,7 +85,7 @@ public class CardDao implements DAO<Card> {
         String query = "UPDATE card SET packageid = ? WHERE cardid = ?";
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
-        stmt.setString(1, card.getPackageid());
+        stmt.setString(1, card.getPackageId());
         stmt.setString(2, card.getId());
         return stmt.execute();
 
@@ -93,7 +95,7 @@ public class CardDao implements DAO<Card> {
         String query = "UPDATE card SET userid = ? WHERE cardid = ?";
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
-        stmt.setString(1, card.getUserID());
+        stmt.setString(1, card.getUserId());
         stmt.setString(2, card.getId());
         return stmt.execute();
     }
@@ -104,13 +106,14 @@ public class CardDao implements DAO<Card> {
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, deckid);
-        stmt.setString(2,cardid);
+        stmt.setString(2, cardid);
         return stmt.execute();
     }
 
 
     @Override
     public void delete(String id) {
+
 
     }
 
@@ -121,18 +124,18 @@ public class CardDao implements DAO<Card> {
         stmt.setString(1, userID);
         ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            String name = rs.getString(2);
-            if (name.contains("Spell")) {
-                cards.add(new SpellCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-                        Element.valueOf(rs.getString(6)), rs.getString(1),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
-            } else {
-                cards.add(new MonsterCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-                        Element.valueOf(rs.getString(6)), rs.getString(1),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
-            }
-        }
+//        while (rs.next()) {
+////            String name = rs.getString(2);
+////            if (name.contains("Spell")) {
+////                cards.add(new SpellCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
+////                        Element.valueOf(rs.getString(6)), rs.getString(1),
+////                        rs.getString(7), rs.getString(8), rs.getString(9)));
+////            } else {
+////                cards.add(new MonsterCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
+////                        Element.valueOf(rs.getString(6)), rs.getString(1),
+////                        rs.getString(7), rs.getString(8), rs.getString(9)));
+//            }
+//        }
 
         return cards;
     }

@@ -2,7 +2,7 @@ package main.rest.server;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.rest.App;
+import main.App;
 
 import java.io.IOException;
 import java.net.ServerSocket;

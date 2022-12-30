@@ -3,7 +3,7 @@ package main.rest.server;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.rest.App;
+import main.App;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
 

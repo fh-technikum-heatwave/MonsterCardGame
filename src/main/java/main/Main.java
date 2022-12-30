@@ -1,8 +1,5 @@
 package main;
 
-import main.card.Card;
-import main.card.MonsterCard;
-import main.rest.App;
 import main.rest.server.Server;
 
 import java.io.IOException;
