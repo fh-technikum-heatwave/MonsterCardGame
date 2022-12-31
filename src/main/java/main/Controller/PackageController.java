@@ -64,12 +64,9 @@ public class PackageController extends Controller {
     }
 
 
-    public Response buyPackage() {
+    public Response buyPackage(String userId) {
 
-
-
-
-
+        getPackageService().acquirePackage(userId);
 
         return new Response(
                 HttpStatus.BAD_REQUEST,

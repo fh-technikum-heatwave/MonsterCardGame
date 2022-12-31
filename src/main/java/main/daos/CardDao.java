@@ -43,7 +43,7 @@ public class CardDao implements DAO<Card> {
         stmt.setString(6, card.getTypeWeakness().toString());
         stmt.setString(7, card.getNameAndType());
         stmt.setString(8, card.getPackageId());
-       return stmt.execute();
+        return stmt.execute();
     }
 
     @Override
@@ -53,19 +53,6 @@ public class CardDao implements DAO<Card> {
         String query = "select * from card ";
         PreparedStatement stmt = getConnection().prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
-
-//        while (rs.next()) {
-//            String name = rs.getString(2);
-//            if (name.contains("Spell")) {
-//                cards.add(new SpellCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-//                        Element.valueOf(rs.getString(6)), rs.getString(1),
-//                        rs.getString(7), rs.getString(8), rs.getString(9)));
-//            } else {
-//                cards.add(new MonsterCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-//                        Element.valueOf(rs.getString(6)), rs.getString(1),
-//                        rs.getString(7), rs.getString(8), rs.getString(9)));
-//            }
-//        }
 
         return cards;
     }
@@ -81,22 +68,36 @@ public class CardDao implements DAO<Card> {
 
     }
 
-    public boolean updatePackageId(Card card) throws SQLException {
+    public List<Card> getCardsOfSpecificPackage(String packageId) throws SQLException {
+        String query = "select cardid, name, damage, typ, weakness,typeweakness,nameandtype,Card.packageid, userid from Card where Card.packageid = ?";
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(1, packageId);
+        ResultSet rs = stmt.executeQuery();
+        List<Card> cards = new LinkedList<>();
+
+        while (rs.next()) {
+
+            cards.add(createCard(rs));
+        }
+        return cards;
+    }
+
+    public boolean updatePackageId(String packageId, String cardId) throws SQLException {
         String query = "UPDATE card SET packageid = ? WHERE cardid = ?";
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
-        stmt.setString(1, card.getPackageId());
-        stmt.setString(2, card.getId());
+        stmt.setString(1, packageId);
+        stmt.setString(2, cardId);
         return stmt.execute();
 
     }
 
-    public boolean updateUserId(Card card) throws SQLException {
+    public boolean updateUserId(String cardId, String userId) throws SQLException {
         String query = "UPDATE card SET userid = ? WHERE cardid = ?";
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
-        stmt.setString(1, card.getUserId());
-        stmt.setString(2, card.getId());
+        stmt.setString(1, userId);
+        stmt.setString(2, cardId);
         return stmt.execute();
     }
 
@@ -114,7 +115,20 @@ public class CardDao implements DAO<Card> {
     @Override
     public void delete(String id) {
 
+    }
 
+    public List<Card> getByDeckid(String deckId) throws SQLException {
+        List<Card> cards = new LinkedList<>();
+        String query = "select * from card where deckid = ?";
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(1, deckId);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            cards.add(createCard(rs));
+        }
+
+        return cards;
     }
 
     public List<Card> getByUserdID(String userID) throws SQLException {
@@ -124,20 +138,34 @@ public class CardDao implements DAO<Card> {
         stmt.setString(1, userID);
         ResultSet rs = stmt.executeQuery();
 
-//        while (rs.next()) {
-////            String name = rs.getString(2);
-////            if (name.contains("Spell")) {
-////                cards.add(new SpellCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-////                        Element.valueOf(rs.getString(6)), rs.getString(1),
-////                        rs.getString(7), rs.getString(8), rs.getString(9)));
-////            } else {
-////                cards.add(new MonsterCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-////                        Element.valueOf(rs.getString(6)), rs.getString(1),
-////                        rs.getString(7), rs.getString(8), rs.getString(9)));
-//            }
-//        }
+        while (rs.next()) {
+            cards.add(createCard(rs));
+        }
 
         return cards;
+    }
+
+
+    private Card createCard(ResultSet rs) throws SQLException {
+        Card c;
+        String cardId = rs.getString(1);
+        String name = rs.getString(2);
+        int damage = rs.getInt(3);
+        Element type = Element.valueOf(rs.getString(4));
+        String weakness = rs.getString(5);
+        Element typeWeakness = Element.valueOf(rs.getString(6));
+        String nameAndType = rs.getString(7);
+        String packageId = rs.getString(8);
+        String userID = rs.getString(9);
+
+
+        if (name.contains("Spell")) {
+
+            c = new SpellCard(type, name, damage, weakness, typeWeakness, cardId, nameAndType, packageId, userID);
+        } else {
+            c = new MonsterCard(type, name, damage, weakness, typeWeakness, cardId, nameAndType, packageId, userID);
+        }
+        return c;
     }
 
 }

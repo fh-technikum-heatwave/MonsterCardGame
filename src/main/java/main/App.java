@@ -14,6 +14,7 @@ import main.rest.server.Request;
 import main.rest.server.Response;
 import main.rest.server.ServerApp;
 import main.rest.services.DataBaseService;
+import main.rest.services.DeckService;
 import main.rest.services.PackageService;
 
 import java.io.IOException;
@@ -30,8 +31,8 @@ public class App implements ServerApp {
     private UserController userController;
     private CardController cardController;
     private PackageController packageController;
-    private UserPackageController userCardController;
-    private DeckCardController deckCardController;
+
+    private DeckController deckController;
     private Connection connection;
 
     public App() {
@@ -47,13 +48,14 @@ public class App implements ServerApp {
         DeckDao deckDao = new DeckDao(getConnection());
 
         var packageService = new PackageService(packageDao, cardDao, userDao);
+        var deckService = new DeckService(deckDao, cardDao);
 
         packageController = new PackageController(packageService);
 
         userController = new UserController(userDao);
         cardController = new CardController(cardDao);
-        userCardController = new UserPackageController(packageDao, cardDao, userDao);
-        deckCardController = new DeckCardController(deckDao, cardDao);
+        deckController = new DeckController(deckService);
+
     }
 
     @Override
@@ -65,9 +67,13 @@ public class App implements ServerApp {
                     return getUserController().getUserByUsername(username, request.getAuthorizationToken());
 
                 } else if (request.getPathname().contains("/cards")) {
-                    String id = "099a034a-30d4-4361-830a-4263356d35e5";
+                    String token = request.getAuthorizationToken();
 
-                    return getCardController().getUserCard(id);
+                    return getCardController().getUserCard(getUserController().getSession().get(token));
+                } else if (request.getPathname().contains("/decks")) {
+                    String token = request.getAuthorizationToken();
+
+                    return deckController.getDeck(getUserController().getSession().get(token));
                 }
                 break;
             }
@@ -78,7 +84,9 @@ public class App implements ServerApp {
                 } else if (request.getPathname().contains("/sessions")) {
                     return getUserController().loginUser(request.getBody());
                 } else if (request.getPathname().contains("/transactions/packages")) {
-                    getPackageController().buyPackage();
+
+                    String token = request.getAuthorizationToken();
+                    getPackageController().buyPackage(getUserController().getSession().get(token));
                 } else if (request.getPathname().contains("/packages")) {
                     getPackageController().createPackage(request.getBody());
                 }
@@ -91,7 +99,10 @@ public class App implements ServerApp {
 
 
                 } else if (request.getPathname().contains("/decks")) {
-                    return deckCardController.createDeck("099a034a-30d4-4361-830a-4263356d35e5", request.getBody());
+                    String token = request.getAuthorizationToken();
+                    System.out.println(token);
+                    deckController.configureDeck(getUserController().getSession().get(token), request.getBody());
+
                 }
             }
 

@@ -98,7 +98,6 @@ public class CardController extends Controller {
     public Response getUserCard(String userID) {
         try {
             List<Card> card = cardDao.getByUserdID(userID);
-
             String dataJSON = getObjectMapper().writeValueAsString(card);
 
             return new Response(

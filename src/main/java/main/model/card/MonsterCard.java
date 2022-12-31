@@ -18,6 +18,15 @@ public class MonsterCard extends Card {
         setMonsterCardWeakness();
     }
 
+    public MonsterCard(String name, int damage, String id) {
+        super(name, damage, id);
+    }
+
+    public MonsterCard(Element type, String name, int damage, String weakness, Element typeWeakness, String id,
+                       String nameAndType, String packageId, String userId) {
+        super(type, name, damage, weakness, typeWeakness, id, nameAndType, packageId, userId);
+    }
+
 
     private void setMonsterCardWeakness() {
         if (name.contains("Goblin")) {

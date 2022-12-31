@@ -15,11 +15,9 @@ public class SpellCard extends Card {
     public SpellCard(@JsonProperty("Id") String id, @JsonProperty("Name") String name, @JsonProperty("Damage") int damage) {
         super(name, damage, id);
     }
-//    public SpellCard(String id, String name, int damage, String pacakgeID) {
-//        super(id, name, damage,pacakgeID);
-//    }
 
-//    public SpellCard(Element type, String name, int damage, String weakness, Element typeWeakness, String id, String nameAndType, String packageid, String userID) {
-//        super(type, name, damage, weakness, typeWeakness, id, nameAndType, packageid, userID);
-//    }
+    public SpellCard(Element type, String name, int damage, String weakness, Element typeWeakness,
+                     String id, String nameAndType, String packageId, String userId) {
+        super(type, name, damage, weakness, typeWeakness, id, nameAndType, packageId, userId);
+    }
 }

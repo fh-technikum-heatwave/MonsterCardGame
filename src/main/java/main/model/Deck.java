@@ -14,6 +14,7 @@ public class Deck {
     private String deckId;
 
     public Deck() {
+
     }
 
     public Deck(String deckId, String userId) {

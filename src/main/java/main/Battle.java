@@ -19,12 +19,17 @@ public class Battle {
         System.out.println("User1: " + user1Card.getName() + " " + user1Card.getType() + " Damage " + user1Card.getDamage());
         System.out.println("User2: " + user2Card.getName() + " " + user2Card.getType() + " Damage " + user2Card.getDamage());
 
-        if (user1Card.getClass().getSimpleName().contains("Spell") ||
-                user2Card.getClass().getSimpleName().contains("Spell")) {
-            return elementFight(u1, u2, user1Card, user2Card);
-        } else {
-            return monsterFight(u1, u2, user1Card, user2Card);
+
+        for (int i = 0; i < 100; i++) {
+            if (user1Card.getClass().getSimpleName().contains("Spell") ||
+                    user2Card.getClass().getSimpleName().contains("Spell")) {
+                return elementFight(u1, u2, user1Card, user2Card);
+            } else {
+                return monsterFight(u1, u2, user1Card, user2Card);
+            }
         }
+
+        return null;
     }
 
 

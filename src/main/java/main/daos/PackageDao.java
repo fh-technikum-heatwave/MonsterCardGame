@@ -1,6 +1,7 @@
 package main.daos;
 
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +35,7 @@ public class PackageDao implements DAO<Package> {
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, aPackage.getId());
         stmt.setInt(2, aPackage.getPACKAGE_COST());
-       return stmt.execute();
+        return stmt.execute();
     }
 
     @Override
@@ -81,31 +82,5 @@ public class PackageDao implements DAO<Package> {
             return rs.getString(1);
         }
         return null;
-    }
-
-    public Package getPackageWithCards(String id) throws SQLException {
-
-        String query = "select cardid, name, damage, typ, weakness,typeweakness,nameandtype,Card.packageid, userid from Package join card on Package.packageid = Card.packageid where Package.packageid = ?";
-        PreparedStatement stmt = getConnection().prepareStatement(query);
-        stmt.setString(1, id);
-        ResultSet rs = stmt.executeQuery();
-        List<Card> cards = new LinkedList<>();
-
-//        while (rs.next()) {
-//            String name = rs.getString(2);
-//            if (name.contains("Spell")) {
-//                cards.add(new SpellCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-//                        Element.valueOf(rs.getString(6)), rs.getString(1),
-//                        rs.getString(7), rs.getString(8), rs.getString(9)));
-//            } else {
-//                cards.add(new MonsterCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-//                        Element.valueOf(rs.getString(6)), rs.getString(1),
-//                        rs.getString(7), rs.getString(8), rs.getString(9)));
-//            }
-//        }
-
-//        return new Package(cards.get(0).getPackageid(), cards);
-
-        return new Package();
     }
 }

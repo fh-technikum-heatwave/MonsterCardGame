@@ -54,6 +54,19 @@ public abstract class Card {
         }
     }
 
+    public Card(Element type, String name, int damage, String weakness,
+                Element typeWeakness, String id, String nameAndType, String packageId, String userId) {
+        this.type = type;
+        this.name = name;
+        this.damage = damage;
+        this.weakness = weakness;
+        this.typeWeakness = typeWeakness;
+        this.id = id;
+        this.nameAndType = nameAndType;
+        this.packageId = packageId;
+        this.userId = userId;
+    }
+
 
     public void changePackageId(String packageId) {
         setPackageId(packageId);

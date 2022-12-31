@@ -60,7 +60,24 @@ public class PackageService {
     }
 
 
-    public void acquirePackage(){
+    public void acquirePackage(String userId) {
+
+
+        try {
+            String packageId = getPackageDao().getPackageIdFromFirstRow();
+            List<Card> cards = cardDao.getCardsOfSpecificPackage(packageId);
+            for (var c : cards) {
+                cardDao.updateUserId(c.getId(), userId);
+                cardDao.updatePackageId(null,c.getId());
+            }
+
+            getPackageDao().delete(packageId);
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 }
