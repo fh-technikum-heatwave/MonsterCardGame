@@ -6,21 +6,21 @@ import lombok.Setter;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
 import main.rest.server.Response;
-import main.rest.services.BattleService;
+import main.rest.services.GameService;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class BattleController extends Controller {
+public class GameController extends Controller {
 
-    private BattleService battleService;
+    private GameService gameService;
 
-    public BattleController(BattleService battleService) {
-        this.battleService = battleService;
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
     }
 
 
     public Response battle(String uid) {
-        String s = battleService.battle(uid);
+        String s = gameService.battle(uid);
 
 
         return new Response(

@@ -28,14 +28,8 @@ public class DeckService {
 
     public void configureDeck(String userId, List<String> cardIds) throws SQLException {
 
-
-        System.out.println(userId);
-        System.out.println("token----------");
         Deck deck = new Deck(UUID.randomUUID().toString(), userId);
-
-
         deckDao.create(deck);
-
         for (var cardId : cardIds) {
             getCardDao().updateDeckID(cardId, deck.getDeckId());
         }

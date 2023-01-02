@@ -14,6 +14,7 @@ import main.daos.CardDao;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
 import main.rest.server.Response;
+import main.rest.services.CardService;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -23,97 +24,40 @@ public class CardController extends Controller {
 
     @Setter(AccessLevel.PRIVATE)
     @Getter(AccessLevel.PRIVATE)
-    private CardDao cardDao;
+    private CardService cardService;
 
 
-    public CardController(CardDao cardDao) {
-        setCardDao(cardDao);
+    public CardController(CardService cardService) {
+        setCardService(cardService);
     }
 
 
-    public List<Card> getAllCards() {
+    public Response getUserCard(String userID) throws JsonProcessingException {
 
-        return null;
-    }
-
-    public Response createCards(String body, String packageId) throws JsonProcessingException {
-
-
-        List<Card> cards = new LinkedList<>();
-        JsonNode actualObj = getObjectMapper().readTree(body);
-        Card c;
-
-        if (actualObj.isArray()) {
-            for (var jsonObj : actualObj) {
-
-                if (jsonObj.get("Name").asText().contains("Spell")) {
-                    c = getObjectMapper().readValue(jsonObj.toString(), SpellCard.class);
-
-                } else {
-                    c = getObjectMapper().readValue(jsonObj.toString(), MonsterCard.class);
-                }
-
-                cards.add(c);
-
-            }
-        }
-
-        for (var ca: cards) {
-            System.out.println(ca);
-
-        }
-
-
-//        if (actualObj.isArray()) {
-//            for (var jsonObj : actualObj) {
-//                Card c;
-//                if (jsonObj.get("Name").asText().contains("Spell")) {
-//                    c = new SpellCard(jsonObj.get("Id").asText(), jsonObj.get("Name").asText(), jsonObj.get("Damage").asInt(), packageId);
-//                } else {
-//                    c = new MonsterCard(jsonObj.get("Id").asText(), jsonObj.get("Name").asText(), jsonObj.get("Damage").asInt(), packageId);
-//                }
-//                try {
-//
-//                    cardDao.create(c);
-//                } catch (SQLException throwables) {
-//                    return new Response(
-//                            HttpStatus.BAD_REQUEST,
-//                            ContentType.JSON,
-//                            "{ \"error\": \"Card already exists\", \"data\": null }"
-//                    );
-//                }
-//            }
-//        }
-//        return new Response(
-//                HttpStatus.OK,
-//                ContentType.TEXT,
-//                "Cards successfully created"
-//        );
-
-
-        return null;
-    }
-
-
-    public Response getUserCard(String userID) {
-        try {
-            List<Card> card = cardDao.getByUserdID(userID);
-            String dataJSON = getObjectMapper().writeValueAsString(card);
-
+        if (userID == null) {
             return new Response(
-                    HttpStatus.OK,
-                    ContentType.JSON,
-                    "{ \"data\": " + dataJSON + ", \"error\": null }"
-            );
-
-        } catch (SQLException | JsonProcessingException throwables) {
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
+                    HttpStatus.Forbidden,
                     ContentType.TEXT,
-                    "Could not get Cards"
+                    "Token Missing/Token invalid"
             );
         }
+
+
+        List<Card> card = cardService.getCardsByUserId(userID);
+        String dataJSON = getObjectMapper().writeValueAsString(card);
+
+        HttpStatus httpStatus = HttpStatus.OK;
+
+        if (card == null ||card.size()==0) {
+            httpStatus = HttpStatus.NO_CONTENT;
+        }
+
+        return new Response(
+                httpStatus,
+                ContentType.JSON,
+                "{ \"data\": " + dataJSON + ", \"error\": null }"
+        );
+
+
     }
-
-
 }

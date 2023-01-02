@@ -76,4 +76,12 @@ public class UserDao implements DAO<User> {
         }
         return null;
     }
+
+    public void updateUserCoins(String uid, int updatedCoins) throws SQLException {
+        String query = "UPDATE user SET coins = ? WHERE userid = ?";
+
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setInt(1, updatedCoins);
+        stmt.setString(2, uid);
+    }
 }

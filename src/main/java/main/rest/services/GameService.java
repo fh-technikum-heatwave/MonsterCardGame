@@ -24,7 +24,7 @@ import java.util.Queue;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class BattleService {
+public class GameService {
 
     private UserDao userDao;
     private CardDao cardDao;
@@ -33,7 +33,7 @@ public class BattleService {
     private static Queue<String> battleWaiter = new LinkedList<>();
 
 
-    public BattleService(UserDao userDao, CardDao cardDao, DeckDao deckDao) {
+    public GameService(UserDao userDao, CardDao cardDao, DeckDao deckDao) {
         this.userDao = userDao;
         this.cardDao = cardDao;
         this.deckDao = deckDao;

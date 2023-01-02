@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import main.model.Package;
 import main.daos.PackageDao;
+import main.model.User;
 import main.model.card.Card;
 import main.model.card.MonsterCard;
 import main.model.card.SpellCard;
@@ -32,8 +33,32 @@ public class PackageController extends Controller {
     }
 
 
-    public String createPackage(String body) throws JsonProcessingException {
+    public Response createPackage(String uid, String body) throws JsonProcessingException {
 
+        if (uid == null) {
+            return new Response(
+                    HttpStatus.Unauthorized,
+                    ContentType.TEXT,
+                    "Token Missing/Token invalid"
+            );
+        }
+
+        User user = packageService.getUserById(uid);
+        if (user == null || !user.getUsername().equals("admin")) {
+            return new Response(
+                    HttpStatus.Forbidden,
+                    ContentType.TEXT,
+                    "Provided user is not \"admin\""
+            );
+        }
+
+        if (!uid.equals("admin")) {
+            return new Response(
+                    HttpStatus.Forbidden,
+                    ContentType.TEXT,
+                    "Token Missing/Token invalid"
+            );
+        }
 
         List<Card> cards = new LinkedList<>();
         JsonNode actualObj = getObjectMapper().readTree(body);
@@ -50,28 +75,66 @@ public class PackageController extends Controller {
                 }
 
                 cards.add(c);
-
             }
         }
 
-        try {
-            getPackageService().createPackagesAndCards(cards);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+
+        String responseValue = getPackageService().createPackagesAndCards(cards);
+        HttpStatus status = HttpStatus.CREATED;
+        String message = "Package and Cards created";
+
+        if (responseValue.equals("23505")) {
+            status = HttpStatus.Conflict;
+            message = "At least one card in the packages already exists";
         }
 
-        return null;
+        return new Response(
+                status,
+                ContentType.TEXT,
+                message
+        );
+
     }
 
 
-    public Response buyPackage(String userId) {
+    public Response buyPackage(String userId) throws JsonProcessingException {
 
-        getPackageService().acquirePackage(userId);
+        if (userId == null) {
+            return new Response(
+                    HttpStatus.Unauthorized,
+                    ContentType.TEXT,
+                    "Token Missing/Token invalid"
+            );
+        }
+
+        if (!getPackageService().checkForPackage()) {
+            return new Response(
+                    HttpStatus.NOT_FOUND,
+                    ContentType.JSON,
+                    "{ \"data\": " + null + ", \"error\": null }"
+            );
+        }
+
+        if (!getPackageService().checkUserMoney(userId)) {
+            return new Response(
+                    HttpStatus.Forbidden,
+                    ContentType.TEXT,
+                    "Not enough money for buying"
+            );
+        }
+
+        List<Card> cards = getPackageService().acquirePackage(userId);
+
+        String dataJson = getObjectMapper().writeValueAsString(cards);
+        HttpStatus httpStatus = HttpStatus.OK;
+        if (cards == null) {
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
 
         return new Response(
-                HttpStatus.BAD_REQUEST,
+                httpStatus,
                 ContentType.JSON,
-                "{ \"error\": \"Card already exists\", \"data\": null }"
+                "{ \"data\": " + dataJson + ", \"error\": null }"
         );
     }
 

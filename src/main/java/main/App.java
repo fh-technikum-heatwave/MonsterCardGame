@@ -8,21 +8,14 @@ import main.daos.DeckDao;
 import main.daos.PackageDao;
 import main.daos.UserDao;
 import main.Controller.*;
-import main.rest.http.ContentType;
-import main.rest.http.HttpStatus;
 import main.rest.server.Request;
 import main.rest.server.Response;
 import main.rest.server.ServerApp;
-import main.rest.services.BattleService;
-import main.rest.services.DataBaseService;
-import main.rest.services.DeckService;
-import main.rest.services.PackageService;
+import main.rest.services.*;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Setter(AccessLevel.PRIVATE)
 @Getter(AccessLevel.PRIVATE)
@@ -33,7 +26,7 @@ public class App implements ServerApp {
     private CardController cardController;
     private PackageController packageController;
 
-    private BattleController battleController;
+    private GameController gameController;
 
     private DeckController deckController;
     private Connection connection;
@@ -52,15 +45,16 @@ public class App implements ServerApp {
 
         var packageService = new PackageService(packageDao, cardDao, userDao);
         var deckService = new DeckService(deckDao, cardDao);
-        var battleService = new BattleService(userDao, cardDao, deckDao);
+        var battleService = new GameService(userDao, cardDao, deckDao);
+        var cardService = new CardService(cardDao);
 
 
         packageController = new PackageController(packageService);
         deckController = new DeckController(deckService);
-        battleController = new BattleController(battleService);
+        gameController = new GameController(battleService);
 
         userController = new UserController(userDao);
-        cardController = new CardController(cardDao);
+        cardController = new CardController(cardService);
 
 
     }
@@ -93,12 +87,16 @@ public class App implements ServerApp {
                 } else if (request.getPathname().contains("/transactions/packages")) {
 
                     String token = request.getAuthorizationToken();
-                    getPackageController().buyPackage(getUserController().getSession().get(token));
+                    return getPackageController().buyPackage(getUserController().getSession().get(token));
                 } else if (request.getPathname().contains("/packages")) {
-                    getPackageController().createPackage(request.getBody());
+                    String token = request.getAuthorizationToken();
+                    System.out.println("-------------token-----------");
+                    System.out.println(token);
+                    System.out.println(getUserController().getSession());
+                    return getPackageController().createPackage(getUserController().getSession().get(token), request.getBody());
                 } else if (request.getPathname().contains("/battles")) {
                     String token = request.getAuthorizationToken();
-                    return getBattleController().battle(getUserController().getSession().get(token));
+                    return getGameController().battle(getUserController().getSession().get(token));
                 }
                 break;
             }

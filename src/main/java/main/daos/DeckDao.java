@@ -52,7 +52,6 @@ public class DeckDao implements DAO<Deck> {
 
     }
 
-
     public String getDeckIdByUserId(String userId) throws SQLException {
         String query = "select deckid from deck where userid=?";
         PreparedStatement stmt = getConnection().prepareStatement(query);

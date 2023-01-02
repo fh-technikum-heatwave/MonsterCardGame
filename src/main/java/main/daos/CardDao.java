@@ -113,8 +113,11 @@ public class CardDao implements DAO<Card> {
 
 
     @Override
-    public void delete(String id) {
-
+    public void delete(String id) throws SQLException {
+        String query = "DELETE FROM card WHERE cardid = ?";
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(1, id);
+        stmt.execute();
     }
 
     public List<Card> getByDeckid(String deckId) throws SQLException {

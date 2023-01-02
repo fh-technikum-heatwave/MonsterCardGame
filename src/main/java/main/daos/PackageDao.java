@@ -72,14 +72,14 @@ public class PackageDao implements DAO<Package> {
     }
 
 
-    public String getPackageIdFromFirstRow() throws SQLException {
-        String query = "select packageid from package limit 1";
+    public Package getOnePackage() throws SQLException {
+        String query = "select * from package limit 1";
         PreparedStatement stmt = getConnection().prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
 
 
         while (rs.next()) {
-            return rs.getString(1);
+            return new Package(rs.getString(1));
         }
         return null;
     }

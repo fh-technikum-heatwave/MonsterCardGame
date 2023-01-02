@@ -1,12 +1,8 @@
 package main;
 
-import main.PublishSubscribe.Listener;
 import main.PublishSubscribe.Observer;
 import main.dtos.UserDeckDTO;
-import main.model.User;
 import main.model.card.Card;
-import main.model.card.MonsterCard;
-import main.rest.services.BattleService;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
