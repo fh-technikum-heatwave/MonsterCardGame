@@ -9,22 +9,19 @@ import main.model.card.MonsterCard;
 import main.rest.services.BattleService;
 
 import java.util.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Battle implements Runnable {
 
 
-    private static Queue<Observer> waiter = new LinkedList<>();
+    private static BlockingQueue<Observer> waiter = new LinkedBlockingQueue<>();
 
-    public static synchronized void registerForBattle(Observer observer) {
-
-
+    public static void registerForBattle(Observer observer) {
         waiter.add(observer);
+
         if (waiter.size() >= 2) {
-
             System.out.println(waiter.size());
-
-
-
             Observer u1 = waiter.poll();
             Observer u2 = waiter.poll();
 

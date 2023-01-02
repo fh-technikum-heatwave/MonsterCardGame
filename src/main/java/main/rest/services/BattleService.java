@@ -60,9 +60,15 @@ public class BattleService {
 
 
 
+            while (true && !observer.isFinish()) {
+                if (observer.list.size() == 2) {
+                    break;
+                }
+            }
 
 
             String output = "winner " + observer.winner + "\n looser: " + observer.looser;
+
 
 
             return output;
@@ -73,4 +79,10 @@ public class BattleService {
         }
     }
 
+
+    public synchronized void waiting(Observer observer){
+        while (true){
+
+        }
+    }
 }
