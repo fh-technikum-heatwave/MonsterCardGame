@@ -13,6 +13,9 @@ import main.dtos.UserDeckDTO;
 import main.model.Deck;
 import main.model.User;
 import main.model.card.Card;
+import main.rest.http.ContentType;
+import main.rest.http.HttpStatus;
+import main.rest.server.Response;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -37,7 +40,7 @@ public class BattleService {
     }
 
 
-    public void battle(String uid) {
+    public String battle(String uid) {
 
 
         try {
@@ -46,16 +49,24 @@ public class BattleService {
             List<Card> deckCards = cardDao.getByDeckid(deckId);
             UserDeckDTO userDTO = new UserDeckDTO(user, deckCards);
 
+
+            System.out.println(Thread.currentThread().getName());
+
             Observer observer = new Observer(userDTO);
 
             Battle.registerForBattle(observer);
 
-            System.out.println("in Battle service");
+            System.out.println("before while loop");
 
-            while (observer.isFinish() == false) {
-            }
 
-            System.out.println("finish");
+
+
+
+            String output = "winner " + observer.winner + "\n looser: " + observer.looser;
+
+
+            return output;
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,5 +1,6 @@
 package main.PublishSubscribe;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
 import main.Battle;
 import main.dtos.UserDeckDTO;
@@ -10,9 +11,17 @@ import java.util.Queue;
 @Getter
 public class Observer implements Listener {
 
-    private UserDeckDTO user;
+    public Observer() {
 
+    }
+
+    public UserDeckDTO winner;
+    public UserDeckDTO looser;
+
+    private UserDeckDTO user;
     private boolean isFinish;
+
+
 
     public Observer(UserDeckDTO user) {
         this.user = user;
@@ -20,8 +29,8 @@ public class Observer implements Listener {
 
     @Override
     public void setResult(UserDeckDTO winner, UserDeckDTO looser) {
-        System.out.println("Winner " + winner + "  " + Thread.currentThread().getName());
-        System.out.println("Looser " + looser + " " + Thread.currentThread().getName());
+        this.winner = winner;
+        this.looser = looser;
     }
 
     @Override

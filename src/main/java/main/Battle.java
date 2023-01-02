@@ -22,8 +22,15 @@ public class Battle implements Runnable {
         if (waiter.size() >= 2) {
 
             System.out.println(waiter.size());
+
+
+
             Observer u1 = waiter.poll();
             Observer u2 = waiter.poll();
+
+
+            System.out.println(u1);
+            System.out.println(u2);
 
             Battle b = new Battle(u1, u2);
 

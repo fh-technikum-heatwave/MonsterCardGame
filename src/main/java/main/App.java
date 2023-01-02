@@ -98,7 +98,7 @@ public class App implements ServerApp {
                     getPackageController().createPackage(request.getBody());
                 } else if (request.getPathname().contains("/battles")) {
                     String token = request.getAuthorizationToken();
-                    getBattleController().battle(getUserController().getSession().get(token));
+                    return getBattleController().battle(getUserController().getSession().get(token));
                 }
                 break;
             }
