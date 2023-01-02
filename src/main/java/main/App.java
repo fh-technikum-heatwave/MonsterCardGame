@@ -13,6 +13,7 @@ import main.rest.http.HttpStatus;
 import main.rest.server.Request;
 import main.rest.server.Response;
 import main.rest.server.ServerApp;
+import main.rest.services.BattleService;
 import main.rest.services.DataBaseService;
 import main.rest.services.DeckService;
 import main.rest.services.PackageService;
@@ -32,6 +33,8 @@ public class App implements ServerApp {
     private CardController cardController;
     private PackageController packageController;
 
+    private BattleController battleController;
+
     private DeckController deckController;
     private Connection connection;
 
@@ -49,12 +52,16 @@ public class App implements ServerApp {
 
         var packageService = new PackageService(packageDao, cardDao, userDao);
         var deckService = new DeckService(deckDao, cardDao);
+        var battleService = new BattleService(userDao, cardDao, deckDao);
+
 
         packageController = new PackageController(packageService);
+        deckController = new DeckController(deckService);
+        battleController = new BattleController(battleService);
 
         userController = new UserController(userDao);
         cardController = new CardController(cardDao);
-        deckController = new DeckController(deckService);
+
 
     }
 
@@ -89,6 +96,9 @@ public class App implements ServerApp {
                     getPackageController().buyPackage(getUserController().getSession().get(token));
                 } else if (request.getPathname().contains("/packages")) {
                     getPackageController().createPackage(request.getBody());
+                } else if (request.getPathname().contains("/battles")) {
+                    String token = request.getAuthorizationToken();
+                    getBattleController().battle(getUserController().getSession().get(token));
                 }
                 break;
             }
@@ -96,7 +106,6 @@ public class App implements ServerApp {
 
             case PUT: {
                 if (request.getPathname().contains("/users/")) {
-
 
                 } else if (request.getPathname().contains("/decks")) {
                     String token = request.getAuthorizationToken();

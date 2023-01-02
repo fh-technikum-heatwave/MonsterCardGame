@@ -68,7 +68,7 @@ public class PackageService {
             List<Card> cards = cardDao.getCardsOfSpecificPackage(packageId);
             for (var c : cards) {
                 cardDao.updateUserId(c.getId(), userId);
-                cardDao.updatePackageId(null,c.getId());
+                cardDao.updatePackageId(null, c.getId());
             }
 
             getPackageDao().delete(packageId);

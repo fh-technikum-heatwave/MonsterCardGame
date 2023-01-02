@@ -52,7 +52,6 @@ public class UserDao implements DAO<User> {
         while (rs.next()) {
             return new User(rs.getString(2), rs.getInt(4), rs.getString(3), rs.getString(1));
         }
-
         return null;
     }
 
@@ -64,5 +63,17 @@ public class UserDao implements DAO<User> {
     @Override
     public void delete(String id) {
 
+    }
+
+    public User getById(String id) throws SQLException {
+        String query = "select * from users where userid = ?";
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(1, id);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            return new User(rs.getString(2), rs.getInt(4), rs.getString(3), rs.getString(1));
+        }
+        return null;
     }
 }
