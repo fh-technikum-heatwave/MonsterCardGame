@@ -17,29 +17,25 @@ public class Battle implements Runnable {
         waiter.add(observer);
 
         if (waiter.size() >= 2) {
-            System.out.println(waiter.size());
-            Observer u1 = waiter.poll();
-            Observer u2 = waiter.poll();
 
+            Observer observer1 = waiter.poll();
+            Observer observer2 = waiter.poll();
 
-            System.out.println(u1);
-            System.out.println(u2);
+            System.out.println(observer1);
+            System.out.println(observer2);
 
-            Battle b = new Battle(u1, u2);
-
-            Thread t = new Thread(new Battle(u1, u2));
+            Thread t = new Thread(new Battle(observer1, observer2));
             t.run();
-            System.out.println("Battle in Thread: " + t.getName());
-            b.run();
+
         }
     }
 
-    private Observer o1;
-    private Observer o2;
+    private Observer observer1;
+    private Observer observer2;
 
-    public Battle(Observer u1, Observer u2) {
-        this.o1 = u1;
-        this.o2 = u2;
+    public Battle(Observer observer1, Observer observer2) {
+        this.observer1 = observer1;
+        this.observer2 = observer2;
     }
 
 
@@ -59,32 +55,31 @@ public class Battle implements Runnable {
             Card user2Card = u2.getDeck().get(0);
 
 
-            UserDeckDTO winner = null;
-
             if (user1Card.getClass().getSimpleName().contains("Spell") ||
                     user2Card.getClass().getSimpleName().contains("Spell")) {
-                winner = elementFight(u1, u2, user1Card, user2Card);
+                elementFight(u1, u2, user1Card, user2Card);
             } else {
-                winner = monsterFight(u1, u2, user1Card, user2Card);
+                monsterFight(u1, u2, user1Card, user2Card);
             }
 
 
         }
 
 
-        o1.isFinished(true);
-        o2.isFinished(true);
-
         if (u1.getDeck().size() > u2.getDeck().size()) {
-            o1.setResult(u1, u2);
-            o2.setResult(u1, u2);
+            observer1.setResult(u1, u2);
+            observer2.setResult(u1, u2);
         } else if (u2.getDeck().size() > u1.getDeck().size()) {
-            o1.setResult(u2, u1);
-            o2.setResult(u2, u1);
+            observer1.setResult(u2, u1);
+            observer2.setResult(u2, u1);
         } else {
-            o1.setResult(null, null);
-            o2.setResult(null, null);
+            observer1.setResult(null, null);
+            observer2.setResult(null, null);
         }
+
+
+        observer1.isFinished(true);
+        observer2.isFinished(true);
     }
 
 
@@ -130,6 +125,6 @@ public class Battle implements Runnable {
 
     @Override
     public void run() {
-        battle(o1.getUser(), o2.getUser());
+        battle(observer1.getUser(), observer2.getUser());
     }
 }

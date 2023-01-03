@@ -3,10 +3,7 @@ package main;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.daos.CardDao;
-import main.daos.DeckDao;
-import main.daos.PackageDao;
-import main.daos.UserDao;
+import main.daos.*;
 import main.Controller.*;
 import main.rest.server.Request;
 import main.rest.server.Response;
@@ -38,14 +35,15 @@ public class App implements ServerApp {
             e.printStackTrace();
         }
 
-        UserDao userDao = new UserDao(getConnection());
-        CardDao cardDao = new CardDao(getConnection());
-        PackageDao packageDao = new PackageDao(getConnection());
-        DeckDao deckDao = new DeckDao(getConnection());
+        var userDao = new UserDao(getConnection());
+        var cardDao = new CardDao(getConnection());
+        var packageDao = new PackageDao(getConnection());
+        var deckDao = new DeckDao(getConnection());
+        var gameDao = new GameDao(getConnection());
 
         var packageService = new PackageService(packageDao, cardDao, userDao);
         var deckService = new DeckService(deckDao, cardDao);
-        var battleService = new GameService(userDao, cardDao, deckDao);
+        var battleService = new GameService(userDao, cardDao, deckDao, gameDao);
         var cardService = new CardService(cardDao);
 
 
@@ -53,7 +51,7 @@ public class App implements ServerApp {
         deckController = new DeckController(deckService);
         gameController = new GameController(battleService);
 
-        userController = new UserController(userDao);
+        userController = new UserController(userDao, gameDao);
         cardController = new CardController(cardService);
 
 
@@ -66,15 +64,21 @@ public class App implements ServerApp {
                 if (request.getPathname().contains("/users/")) {
                     String username = request.getPathname().split("/")[2];
                     return getUserController().getUserByUsername(username, request.getAuthorizationToken());
-
                 } else if (request.getPathname().contains("/cards")) {
                     String token = request.getAuthorizationToken();
-
                     return getCardController().getUserCard(getUserController().getSession().get(token));
                 } else if (request.getPathname().contains("/decks")) {
                     String token = request.getAuthorizationToken();
-
                     return deckController.getDeck(getUserController().getSession().get(token));
+                } else if (request.getPathname().contains("/stats")) {
+                    String token = request.getAuthorizationToken();
+                    return gameController.getStats(getUserController().getSession().get(token));
+                } else if (request.getPathname().contains("/scores")) {
+                    String token = request.getAuthorizationToken();
+                    System.out.println(token);
+                    System.out.println(getUserController().getSession());
+                    System.out.println(token);
+                    return gameController.getScores(getUserController().getSession().get(token));
                 }
                 break;
             }
@@ -85,14 +89,10 @@ public class App implements ServerApp {
                 } else if (request.getPathname().contains("/sessions")) {
                     return getUserController().loginUser(request.getBody());
                 } else if (request.getPathname().contains("/transactions/packages")) {
-
                     String token = request.getAuthorizationToken();
                     return getPackageController().buyPackage(getUserController().getSession().get(token));
                 } else if (request.getPathname().contains("/packages")) {
                     String token = request.getAuthorizationToken();
-                    System.out.println("-------------token-----------");
-                    System.out.println(token);
-                    System.out.println(getUserController().getSession());
                     return getPackageController().createPackage(getUserController().getSession().get(token), request.getBody());
                 } else if (request.getPathname().contains("/battles")) {
                     String token = request.getAuthorizationToken();
@@ -101,21 +101,19 @@ public class App implements ServerApp {
                 break;
             }
 
-
             case PUT: {
                 if (request.getPathname().contains("/users/")) {
 
                 } else if (request.getPathname().contains("/decks")) {
                     String token = request.getAuthorizationToken();
-                    System.out.println(token);
-                    deckController.configureDeck(getUserController().getSession().get(token), request.getBody());
+                    return deckController.configureDeck(getUserController().getSession().get(token), request.getBody());
 
                 }
             }
 
 
             default:
-                return null;
+                break;
         }
         return null;
     }

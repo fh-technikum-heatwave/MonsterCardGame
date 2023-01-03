@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.Element;
+import main.model.Deck;
 import main.model.card.Card;
 import main.model.card.MonsterCard;
 import main.model.card.SpellCard;
@@ -29,11 +30,6 @@ public class CardDao implements DAO<Card> {
     @Override
     public boolean create(Card card) throws SQLException {
         String query = "INSERT INTO card (cardid,name,damage,typ,weakness,typeweakness,nameandtype,packageid) VALUES (?,?,?,?,?,?,?,?)";
-
-        if (card.getName().contains("Spell")) {
-
-        }
-
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, card.getId());
         stmt.setString(2, card.getName());
@@ -53,6 +49,10 @@ public class CardDao implements DAO<Card> {
         String query = "select * from card ";
         PreparedStatement stmt = getConnection().prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            cards.add(createCard(rs));
+        }
 
         return cards;
     }
@@ -102,13 +102,14 @@ public class CardDao implements DAO<Card> {
     }
 
 
-    public boolean updateDeckID(String cardid, String deckid) throws SQLException {
-        String query = "UPDATE card SET deckid = ? WHERE cardid = ?";
+    public int updateDeckID(String cardid, String deckId, String userId) throws SQLException {
+        String query = "UPDATE card SET deckid = ? WHERE cardid = ? and ( userid = ? or userid = null)";
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
-        stmt.setString(1, deckid);
+        stmt.setString(1, deckId);
         stmt.setString(2, cardid);
-        return stmt.execute();
+        stmt.setString(3, userId);
+        return stmt.executeUpdate();
     }
 
 

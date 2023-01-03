@@ -19,32 +19,72 @@ public class DeckController extends Controller {
     }
 
 
+    public Response configureDeck(String userId, String body) throws JsonProcessingException {
 
-    public void configureDeck(String userId, String body) throws JsonProcessingException {
+        List<String> cardIds = getObjectMapper().readValue(body, List.class);
 
-        List<String> cardIds = getObjectMapper().readValue(body, new TypeReference<List<String>>() {
-        });
-
-        System.out.println(userId);
-
-        try {
-            deckService.configureDeck(userId, cardIds);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if (userId == null) {
+            return new Response(
+                    HttpStatus.Forbidden,
+                    ContentType.TEXT,
+                    "Token Missing/Token invalid"
+            );
         }
+
+        if (cardIds.size() != 4) {
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.TEXT,
+                    "The provided deck did not include the required amount of cards"
+            );
+        }
+
+        boolean worked = deckService.configureDeck(userId, cardIds);
+
+
+        String message = "";
+        HttpStatus httpStatus = HttpStatus.OK;
+
+        if (worked) {
+            message = "The deck has been successfully configured";
+        } else {
+            message = "At least one of the provided cards does not belong to the user or is not available.";
+            httpStatus = HttpStatus.Forbidden;
+        }
+
+        return new Response(
+                httpStatus,
+                ContentType.TEXT,
+                message
+        );
+
+
     }
 
     public Response getDeck(String userId) throws JsonProcessingException {
+
+        if (userId == null) {
+            return new Response(
+                    HttpStatus.Forbidden,
+                    ContentType.TEXT,
+                    "Token Missing/Token invalid"
+            );
+        }
+
+
         List<Card> card = deckService.getDeck(userId);
+        HttpStatus httpStatus = HttpStatus.OK;
+
+        if (card.size() == 0) {
+            httpStatus = HttpStatus.NO_CONTENT;
+        }
 
         String dataJSON = getObjectMapper().writeValueAsString(card);
 
         return new Response(
-                HttpStatus.OK,
+                httpStatus,
                 ContentType.JSON,
                 "{ \"data\": " + dataJSON + ", \"error\": null }"
         );
-
-
     }
 }

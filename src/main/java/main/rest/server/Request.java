@@ -38,7 +38,6 @@ public class Request {
 
         try {
             String line = inputStream.readLine();
-            String secondLine = inputStream.readLine();
 
             if (line != null) {
 
@@ -53,6 +52,7 @@ public class Request {
 
 
                 String contentTypeFromInputLine = "";
+                contentLength = 0;
                 while (!line.isEmpty()) {
                     line = inputStream.readLine();
                     if (line.startsWith(CONTENT_LENGTH)) {

@@ -6,11 +6,14 @@ import lombok.Setter;
 import main.Battle;
 import main.PublishSubscribe.Listener;
 import main.PublishSubscribe.Observer;
+import main.Tuple.Tuple;
 import main.daos.CardDao;
 import main.daos.DeckDao;
+import main.daos.GameDao;
 import main.daos.UserDao;
 import main.dtos.UserDeckDTO;
 import main.model.Deck;
+import main.model.Statistik;
 import main.model.User;
 import main.model.card.Card;
 import main.rest.http.ContentType;
@@ -29,18 +32,20 @@ public class GameService {
     private UserDao userDao;
     private CardDao cardDao;
     private DeckDao deckDao;
+    private GameDao gameDao;
 
     private static Queue<String> battleWaiter = new LinkedList<>();
 
 
-    public GameService(UserDao userDao, CardDao cardDao, DeckDao deckDao) {
+    public GameService(UserDao userDao, CardDao cardDao, DeckDao deckDao, GameDao gameDao) {
         this.userDao = userDao;
         this.cardDao = cardDao;
         this.deckDao = deckDao;
+        this.gameDao = gameDao;
     }
 
 
-    public String battle(String uid) {
+    public Tuple<UserDeckDTO, UserDeckDTO> battle(String uid) {
 
 
         try {
@@ -50,14 +55,10 @@ public class GameService {
             UserDeckDTO userDTO = new UserDeckDTO(user, deckCards);
 
 
-            System.out.println(Thread.currentThread().getName());
-
             Observer observer = new Observer(userDTO);
-
             Battle.registerForBattle(observer);
 
             System.out.println("before while loop");
-
 
 
             while (true && !observer.isFinish()) {
@@ -67,11 +68,23 @@ public class GameService {
             }
 
 
-            String output = "winner " + observer.winner + "\n looser: " + observer.looser;
+            String output = "winner " + observer.getList().get(0) + "\n looser: " + observer.getList().get(1);
+
+            UserDeckDTO winner = observer.getList().get(0);
+            UserDeckDTO looser = observer.getList().get(1);
+
+            if (winner == null && looser == null) {
+//                unentschieden
+
+                return new Tuple<>(null, null, "unentschieden");
+            }
 
 
-
-            return output;
+            if (winner.getUser().getId().equals(uid)) {
+                return new Tuple<>(winner, looser, "Du hast gewonnen");
+            } else {
+                return new Tuple<>(winner, looser, "Du hast verloren" );
+            }
 
 
         } catch (SQLException e) {
@@ -80,9 +93,20 @@ public class GameService {
     }
 
 
-    public synchronized void waiting(Observer observer){
-        while (true){
-
+    public Statistik getStats(String userId) {
+        try {
+            return gameDao.getByUserId(userId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
+
+    public List<Statistik> getScores() {
+        try {
+            return gameDao.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

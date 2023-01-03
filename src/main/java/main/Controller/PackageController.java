@@ -44,19 +44,13 @@ public class PackageController extends Controller {
         }
 
         User user = packageService.getUserById(uid);
+
+        System.out.println(user);
         if (user == null || !user.getUsername().equals("admin")) {
             return new Response(
                     HttpStatus.Forbidden,
                     ContentType.TEXT,
-                    "Provided user is not \"admin\""
-            );
-        }
-
-        if (!uid.equals("admin")) {
-            return new Response(
-                    HttpStatus.Forbidden,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
+                    "Provided user is not admin"
             );
         }
 
@@ -110,8 +104,8 @@ public class PackageController extends Controller {
         if (!getPackageService().checkForPackage()) {
             return new Response(
                     HttpStatus.NOT_FOUND,
-                    ContentType.JSON,
-                    "{ \"data\": " + null + ", \"error\": null }"
+                    ContentType.TEXT,
+                    "No packages for buying available"
             );
         }
 

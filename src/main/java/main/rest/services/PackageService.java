@@ -69,7 +69,7 @@ public class PackageService {
     }
 
 
-    public User getUserById(String uid){
+    public User getUserById(String uid) {
         try {
             return userDao.getById(uid);
         } catch (SQLException throwables) {
@@ -91,7 +91,7 @@ public class PackageService {
             throwables.printStackTrace();
         }
 
-        return true;
+        return false;
     }
 
 
@@ -126,7 +126,10 @@ public class PackageService {
                 cardDao.updateUserId(c.getId(), userId);
                 cardDao.updatePackageId(null, c.getId());
             }
-            userDao.updateUserCoins(userId, user.getCoins() - apackage.getPACKAGE_COST());
+
+            int newValue = user.getCoins()-apackage.getPACKAGE_COST();
+
+            userDao.updateUserCoins(userId, newValue);
             getPackageDao().delete(apackage.getId());
 
 
