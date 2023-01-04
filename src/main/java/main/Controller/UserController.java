@@ -35,7 +35,7 @@ public class UserController extends Controller {
         User user = getObjectMapper().readValue(body, User.class);
         try {
             userDao.create(user);
-            gameDao.create(new Statistik(user.getUsername(), 0, 0, 0, user.getId(), UUID.randomUUID().toString()));
+            gameDao.create(new Statistik(user.getUsername(), 100, 0, 0, user.getId(), UUID.randomUUID().toString()));
 
             return new Response(
                     HttpStatus.CREATED,

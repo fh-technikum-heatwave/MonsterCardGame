@@ -59,7 +59,15 @@ public class CardDao implements DAO<Card> {
 
 
     @Override
-    public Card read(String t) throws SQLException {
+    public Card read(String cardId) throws SQLException {
+        String query = "select * from card where cardid = ? ";
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(1, cardId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            return createCard(rs);
+        }
+
         return null;
     }
 
@@ -135,7 +143,7 @@ public class CardDao implements DAO<Card> {
         return cards;
     }
 
-    public List<Card> getByUserdID(String userID) throws SQLException {
+    public List<Card> getByUserID(String userID) throws SQLException {
         List<Card> cards = new LinkedList<>();
         String query = "select * from card where userid = ?";
         PreparedStatement stmt = getConnection().prepareStatement(query);
@@ -147,6 +155,21 @@ public class CardDao implements DAO<Card> {
         }
 
         return cards;
+    }
+
+    public Card getCardsByUserIdAndCheckIfLocked(String userId, String cardId) throws SQLException {
+        String query = "select * from card where userid = ? and cardid = ? and deckid = null";
+
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(1, userId);
+        stmt.setString(2, cardId);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            return createCard(rs);
+        }
+
+        return null;
     }
 
 

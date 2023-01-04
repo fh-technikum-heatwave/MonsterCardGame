@@ -22,10 +22,10 @@ public class App implements ServerApp {
     private UserController userController;
     private CardController cardController;
     private PackageController packageController;
-
     private GameController gameController;
-
     private DeckController deckController;
+    private TradingController tradingController;
+
     private Connection connection;
 
     public App() {
@@ -40,19 +40,23 @@ public class App implements ServerApp {
         var packageDao = new PackageDao(getConnection());
         var deckDao = new DeckDao(getConnection());
         var gameDao = new GameDao(getConnection());
+        var tradingDao = new TradingDao(getConnection());
 
         var packageService = new PackageService(packageDao, cardDao, userDao);
         var deckService = new DeckService(deckDao, cardDao);
         var battleService = new GameService(userDao, cardDao, deckDao, gameDao);
         var cardService = new CardService(cardDao);
+        var tradingService = new TradingService(tradingDao, cardDao);
 
 
         packageController = new PackageController(packageService);
         deckController = new DeckController(deckService);
         gameController = new GameController(battleService);
+        cardController = new CardController(cardService);
+        tradingController = new TradingController(tradingService);
+
 
         userController = new UserController(userDao, gameDao);
-        cardController = new CardController(cardService);
 
 
     }
@@ -75,10 +79,10 @@ public class App implements ServerApp {
                     return gameController.getStats(getUserController().getSession().get(token));
                 } else if (request.getPathname().contains("/scores")) {
                     String token = request.getAuthorizationToken();
-                    System.out.println(token);
-                    System.out.println(getUserController().getSession());
-                    System.out.println(token);
                     return gameController.getScores(getUserController().getSession().get(token));
+                } else if (request.getPathname().contains("/tradings")) {
+                    String token = request.getAuthorizationToken();
+                    return getTradingController().getTradingDeals(getUserController().getSession().get(token));
                 }
                 break;
             }
@@ -97,6 +101,14 @@ public class App implements ServerApp {
                 } else if (request.getPathname().contains("/battles")) {
                     String token = request.getAuthorizationToken();
                     return getGameController().battle(getUserController().getSession().get(token));
+                } else if (request.getPathname().contains("/tradings/")) {
+                    String token = request.getAuthorizationToken();
+                    String tradingId = request.getPathname().split("/")[2];
+                    String body = request.getBody();
+                    return getTradingController().trade(getUserController().getSession().get(token), body, tradingId);
+                } else if (request.getPathname().contains("/tradings")) {
+                    String token = request.getAuthorizationToken();
+                    return getTradingController().createTrading(getUserController().getSession().get(token), request.getBody());
                 }
                 break;
             }
@@ -109,6 +121,18 @@ public class App implements ServerApp {
                     return deckController.configureDeck(getUserController().getSession().get(token), request.getBody());
 
                 }
+                break;
+            }
+
+
+            case DELETE: {
+                if (request.getPathname().contains("/tradings/")) {
+                    String tradingId = request.getPathname().split("/")[2];
+                    String token = request.getAuthorizationToken();
+                    return tradingController.deleteTrading(userController.getSession().get(token), tradingId);
+                }
+
+                break;
             }
 
 

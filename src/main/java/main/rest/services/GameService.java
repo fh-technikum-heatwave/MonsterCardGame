@@ -61,21 +61,35 @@ public class GameService {
             System.out.println("before while loop");
 
 
-            while (true && !observer.isFinish()) {
-                if (observer.list.size() == 2) {
-                    break;
-                }
+//            while (!observer.isFinish()) {
+//                if (observer.list.size() == 2) {
+//                    break;
+//                }
+//            }
+
+            String output = "";
+            Tuple<UserDeckDTO, UserDeckDTO> players = null;
+
+            try {
+                players = observer.getBlockingQueue().take();
+
+                output = "winner " + players.getWinner() + "\n looser: " + players.getLooser();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
 
-            String output = "winner " + observer.getList().get(0) + "\n looser: " + observer.getList().get(1);
+//             output = "winner " +  + "\n looser: " + observer.getList().get(1);
+//
+//            UserDeckDTO winner = observer.getList().get(0);
+//            UserDeckDTO looser = observer.getList().get(1);
 
-            UserDeckDTO winner = observer.getList().get(0);
-            UserDeckDTO looser = observer.getList().get(1);
+
+            UserDeckDTO winner = players.getWinner();
+            UserDeckDTO looser = players.getLooser();
 
             if (winner == null && looser == null) {
 //                unentschieden
-
                 return new Tuple<>(null, null, "unentschieden");
             }
 
@@ -83,7 +97,7 @@ public class GameService {
             if (winner.getUser().getId().equals(uid)) {
                 return new Tuple<>(winner, looser, "Du hast gewonnen");
             } else {
-                return new Tuple<>(winner, looser, "Du hast verloren" );
+                return new Tuple<>(winner, looser, "Du hast verloren");
             }
 
 

@@ -9,7 +9,6 @@ public class Main {
         App app = new App();
         Server server = new Server(app, 10001);
         server.start();
-
     }
 }
 

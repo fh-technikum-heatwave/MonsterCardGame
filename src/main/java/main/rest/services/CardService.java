@@ -1,7 +1,6 @@
 package main.rest.services;
 
 import main.daos.CardDao;
-import main.daos.DeckDao;
 import main.model.card.Card;
 
 import java.sql.SQLException;
@@ -19,7 +18,7 @@ public class CardService {
 
     public List<Card> getCardsByUserId(String uid) {
         try {
-            return cardDao.getByUserdID(uid);
+            return cardDao.getByUserID(uid);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -1,0 +1,272 @@
+0. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+1. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+2. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+3. Round 
+Card from User1 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+4. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+5. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+6. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+7. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+8. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+9. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+10. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+11. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+12. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+13. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+14. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+15. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+16. Round 
+Card from User1 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+17. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+18. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+19. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+20. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+21. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+22. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+23. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+24. Round 
+Card from User1 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+25. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+26. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+27. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+28. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+29. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+30. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+31. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+32. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+33. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+34. Round 
+Card from User1 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+35. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+36. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+37. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+38. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+39. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+40. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+41. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+42. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+43. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+44. Round 
+Card from User1 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+45. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+46. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+47. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+48. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+49. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+50. Round 
+Card from User1 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+51. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+52. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+53. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+54. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+55. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+56. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+57. Round 
+Card from User1 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+58. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+59. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+60. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+61. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+62. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+63. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+64. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+65. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+66. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+67. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+68. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+69. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+70. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+71. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+72. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+73. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+74. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+75. Round 
+Card from User1 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+76. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+77. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+78. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+79. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+80. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+81. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+82. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterSpell', damage=22, typeWeakness=NORMAL, id='d60e23cf-2238-4d49-844f-c7589ee5342e', nameAndType='waterspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+83. Round 
+Card from User1 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=50, typeWeakness=FIRE, id='aa9999a0-734c-49c6-8f4a-651864b14e62', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+84. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+85. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+86. Round 
+Card from User1 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=45, typeWeakness=FIRE, id='02a9c76e-b17d-427f-9240-2dd49b0d3bfd', nameAndType='normalregularspell', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+87. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+88. Round 
+Card from User1 Card{type=WATER, name='WaterSpell', damage=20, typeWeakness=NORMAL, id='e85e3976-7c86-4d06-9a80-641c2019a79f', nameAndType='waterspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='Knight', damage=20, typeWeakness=FIRE, id='d6e9c720-9b5a-40c7-a6b2-bc34752e3463', nameAndType='normalknight', packageid='null', userID='0a25e866-67ca-4f02-a517-a0fc79e81586'}
+89. Round 
+Card from User1 Card{type=NORMAL, name='Dragon', damage=50, typeWeakness=FIRE, id='99f8f8dc-e25e-4a95-aa2c-782823f36e2a', nameAndType='normaldragon', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+card from user2 Card{type=NORMAL, name='RegularSpell', damage=28, typeWeakness=FIRE, id='171f6076-4eb5-4a7d-b3f2-2d650cc3d237', nameAndType='normalregularspell', packageid='null', userID='6f137bb0-393d-443a-86d6-914940ab119b'}
+90. Round 
+Card from User1 Card{type=WATER, name='WaterGoblin', damage=10, typeWeakness=NORMAL, id='845f0dc7-37d0-426e-994e-43fc3ac83c08', nameAndType='watergoblin', packageid='null', userID='6f137bb0-393d-443a-86d6-9
