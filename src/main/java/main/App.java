@@ -47,6 +47,7 @@ public class App implements ServerApp {
         var battleService = new GameService(userDao, cardDao, deckDao, gameDao);
         var cardService = new CardService(cardDao);
         var tradingService = new TradingService(tradingDao, cardDao);
+        var userService = new UserService(userDao, gameDao);
 
 
         packageController = new PackageController(packageService);
@@ -54,9 +55,7 @@ public class App implements ServerApp {
         gameController = new GameController(battleService);
         cardController = new CardController(cardService);
         tradingController = new TradingController(tradingService);
-
-
-        userController = new UserController(userDao, gameDao);
+        userController = new UserController(userService);
 
 
     }
@@ -115,6 +114,8 @@ public class App implements ServerApp {
 
             case PUT: {
                 if (request.getPathname().contains("/users/")) {
+
+
 
                 } else if (request.getPathname().contains("/decks")) {
                     String token = request.getAuthorizationToken();

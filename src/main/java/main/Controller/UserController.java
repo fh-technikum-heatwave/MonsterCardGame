@@ -12,6 +12,7 @@ import main.daos.UserDao;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
 import main.rest.server.Response;
+import main.rest.services.UserService;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -25,77 +26,63 @@ public class UserController extends Controller {
     private GameDao gameDao;
     private Map<String, String> session = new HashMap<>();
 
-    public UserController(UserDao userDao, GameDao gameDao) {
-        setUserDao(userDao);
-        setGameDao(gameDao);
+    private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     public Response register(String body) throws JsonProcessingException {
 
         User user = getObjectMapper().readValue(body, User.class);
-        try {
-            userDao.create(user);
-            gameDao.create(new Statistik(user.getUsername(), 100, 0, 0, user.getId(), UUID.randomUUID().toString()));
+        boolean worked = userService.createUser(user);
 
+        if (worked) {
             return new Response(
                     HttpStatus.CREATED,
                     ContentType.TEXT,
                     "User Successfully created"
             );
-        } catch (SQLException throwables) {
+        } else {
 
-            System.out.println(throwables.getMessage());
-
-            String s = throwables.getSQLState();
-            String errorMessage = "";
-            HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
-
-
-            if (s.equals("23505")) {
-                errorMessage = "This user already exists";
-                httpStatus = HttpStatus.Conflict;
-            }
+            String errorMessage = "This user already exists";
 
             return new Response(
-                    httpStatus,
+                    HttpStatus.Conflict,
                     ContentType.JSON,
                     "{ \"error\": " + errorMessage + ", \"data\": null }"
             );
-
         }
+
+
     }
 
     public Response getUserByUsername(String username, String token) throws JsonProcessingException {
 
         HttpStatus httpStatus = HttpStatus.OK;
-        try {
-            User user = userDao.read(username);
-            System.out.println(user);
 
-            if (user == null) {
-                httpStatus = HttpStatus.NOT_FOUND;
+        User user = userService.getByUsername(username);
 
-            } else {
-                if (token == null || getSession().get(token) == null ||
-                        !getSession().get(token).equals(user.getId())) {
-                    return new Response(
-                            HttpStatus.Unauthorized,
-                            ContentType.TEXT,
-                            "Token Missing/Token invalid"
-                    );
-                }
-                String userDataJSON = getObjectMapper().writeValueAsString(user);
+        if (user == null) {
+            httpStatus = HttpStatus.NOT_FOUND;
+
+        } else {
+            if (token == null || getSession().get(token) == null ||
+                    !getSession().get(token).equals(user.getId())) {
                 return new Response(
-                        httpStatus,
-                        ContentType.JSON,
-                        "{ \"data\": " + userDataJSON + ", \"error\": null }"
+                        HttpStatus.Unauthorized,
+                        ContentType.TEXT,
+                        "Token Missing/Token invalid"
                 );
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-            System.out.println(e.getSQLState());
-
+            String userDataJSON = getObjectMapper().writeValueAsString(user);
+            return new Response(
+                    httpStatus,
+                    ContentType.JSON,
+                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
+            );
         }
+
         return new Response(
                 httpStatus,
                 ContentType.JSON,
@@ -108,31 +95,22 @@ public class UserController extends Controller {
         String username = actualObj.get("Username").asText();
         String pw = actualObj.get("Password").asText();
 
-        try {
-            User user = userDao.read(username);
+        User user = userService.login(username);
 
-            if (user != null && pw.equals(user.getPassword())) {
+        if (user != null && pw.equals(user.getPassword())) {
 
-                session.put(username + "-mtcgToken", user.getId());
+            session.put(username + "-mtcgToken", user.getId());
 
-                return new Response(
-                        HttpStatus.OK,
-                        ContentType.TEXT,
-                        username + "-mtcgToken"
-                );
-            } else {
-                return new Response(
-                        HttpStatus.Unauthorized,
-                        ContentType.TEXT,
-                        "Invalid username/password provided"
-                );
-            }
-
-        } catch (SQLException e) {
             return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.JSON,
-                    "{ \"data\": " + null + ", \"error\": null }"
+                    HttpStatus.OK,
+                    ContentType.TEXT,
+                    username + "-mtcgToken"
+            );
+        } else {
+            return new Response(
+                    HttpStatus.Unauthorized,
+                    ContentType.TEXT,
+                    "Invalid username/password provided"
             );
         }
 
