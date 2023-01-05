@@ -49,7 +49,7 @@ public class FriendController extends Controller {
         boolean worked = friendService.createFriendRequest(friendname, userId);
 
         HttpStatus httpStatus = HttpStatus.OK;
-        String message = "friend Request is sent";
+        String message = "Friend Request is sent";
 
         if (!worked) {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;

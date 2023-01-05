@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import main.daos.*;
 import main.Controller.*;
+import main.rest.http.ContentType;
+import main.rest.http.HttpStatus;
 import main.rest.server.Request;
 import main.rest.server.Response;
 import main.rest.server.ServerApp;
@@ -158,6 +160,15 @@ public class App implements ServerApp {
             default:
                 break;
         }
-        return null;
+        return buildNotExistingRoute();
+    }
+
+
+    private Response buildNotExistingRoute() {
+        return new Response(
+                HttpStatus.NOT_FOUND,
+                ContentType.TEXT,
+                "Not Found"
+        );
     }
 }

@@ -55,8 +55,6 @@ public class DeckController extends Controller {
                 ContentType.TEXT,
                 message
         );
-
-
     }
 
     public Response getDeck(String userId) throws JsonProcessingException {
