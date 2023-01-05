@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.Element;
-import main.model.Deck;
 import main.model.card.Card;
 import main.model.card.MonsterCard;
 import main.model.card.SpellCard;

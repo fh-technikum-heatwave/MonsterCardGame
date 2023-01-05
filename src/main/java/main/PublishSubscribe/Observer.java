@@ -1,10 +1,8 @@
 package main.PublishSubscribe;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.Battle;
 import main.Tuple.Tuple;
 import main.dtos.UserDeckDTO;
 

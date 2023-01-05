@@ -8,7 +8,7 @@ import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
 
 
-@Getter(AccessLevel.PRIVATE)
+@Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PRIVATE)
 public class Response {
     private int statusCode;

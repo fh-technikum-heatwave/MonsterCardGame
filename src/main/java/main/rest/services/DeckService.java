@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import main.daos.CardDao;
 import main.daos.DeckDao;
-import main.daos.UserDao;
 import main.model.Deck;
 import main.model.card.Card;
 

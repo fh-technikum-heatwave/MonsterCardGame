@@ -3,6 +3,7 @@ package main;
 import main.PublishSubscribe.Observer;
 import main.dtos.UserDeckDTO;
 import main.model.card.Card;
+import main.rest.http.Method;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
@@ -112,14 +113,14 @@ public class Battle {
 
     private static UserDeckDTO winner(UserDeckDTO u1, UserDeckDTO u2, double damageC1, double damageC2, Card c1, Card c2) {
         if (damageC1 > damageC2) {
-            u1.getDeck().add(c2);
-            u2.getDeck().remove(c2);
             return u1;
         } else if (damageC1 < damageC2) {
-            u2.getDeck().add(c1);
-            u1.getDeck().remove(c1);
             return u2;
         }
         return null;
     }
+
+
+
+
 }

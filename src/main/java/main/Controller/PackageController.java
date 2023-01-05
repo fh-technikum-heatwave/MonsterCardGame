@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.model.Package;
 import main.daos.PackageDao;
 import main.model.User;
 import main.model.card.Card;
@@ -16,10 +15,8 @@ import main.rest.http.HttpStatus;
 import main.rest.server.Response;
 import main.rest.services.PackageService;
 
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 @Setter(AccessLevel.PRIVATE)
 @Getter(AccessLevel.PRIVATE)

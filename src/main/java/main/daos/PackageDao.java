@@ -1,15 +1,10 @@
 package main.daos;
 
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.Element;
 import main.model.Package;
-import main.model.card.Card;
-import main.model.card.MonsterCard;
-import main.model.card.SpellCard;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

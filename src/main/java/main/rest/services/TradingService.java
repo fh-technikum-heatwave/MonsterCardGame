@@ -1,13 +1,10 @@
 package main.rest.services;
 
 import main.daos.CardDao;
-import main.daos.DeckDao;
 import main.daos.TradingDao;
-import main.daos.UserDao;
 import main.model.Trading;
 import main.model.card.Card;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 

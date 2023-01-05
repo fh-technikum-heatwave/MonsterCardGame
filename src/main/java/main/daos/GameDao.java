@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.model.Statistik;
-import main.model.card.Card;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,23 +1,15 @@
 package main.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.model.card.Card;
-import main.model.card.MonsterCard;
-import main.model.card.SpellCard;
-import main.daos.CardDao;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
 import main.rest.server.Response;
 import main.rest.services.CardService;
 
-import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 
 public class CardController extends Controller {
@@ -36,7 +28,7 @@ public class CardController extends Controller {
 
         if (userID == null) {
             return new Response(
-                    HttpStatus.Forbidden,
+                    HttpStatus.Unauthorized,
                     ContentType.TEXT,
                     "Token Missing/Token invalid"
             );

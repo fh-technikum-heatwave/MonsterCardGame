@@ -1,8 +1,6 @@
 package main.rest.services;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,10 +10,6 @@ import main.daos.UserDao;
 import main.model.Package;
 import main.model.User;
 import main.model.card.Card;
-import main.model.card.MonsterCard;
-import main.model.card.SpellCard;
-import main.rest.server.Response;
-import org.postgresql.core.Tuple;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -123,11 +117,12 @@ public class PackageService {
             User user = userDao.getById(userId);
             cards = cardDao.getCardsOfSpecificPackage(apackage.getId());
             for (var c : cards) {
+                c.changeUserId(userId);
                 cardDao.updateUserId(c.getId(), userId);
                 cardDao.updatePackageId(null, c.getId());
             }
 
-            int newValue = user.getCoins()-apackage.getPACKAGE_COST();
+            int newValue = user.getCoins() - apackage.getPACKAGE_COST();
 
             userDao.updateUserCoins(userId, newValue);
             getPackageDao().delete(apackage.getId());

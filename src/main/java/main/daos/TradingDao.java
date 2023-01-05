@@ -3,7 +3,6 @@ package main.daos;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.model.Statistik;
 import main.model.Trading;
 
 import java.sql.Connection;

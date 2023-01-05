@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.daos.GameDao;
-import main.model.Statistik;
 import main.model.User;
 import main.daos.UserDao;
 import main.rest.http.ContentType;
@@ -14,10 +13,8 @@ import main.rest.http.HttpStatus;
 import main.rest.server.Response;
 import main.rest.services.UserService;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
@@ -36,6 +33,8 @@ public class UserController extends Controller {
 
         User user = getObjectMapper().readValue(body, User.class);
         boolean worked = userService.createUser(user);
+
+        System.out.println(worked);
 
         if (worked) {
             return new Response(

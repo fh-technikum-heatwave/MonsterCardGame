@@ -27,7 +27,7 @@ public class GameController extends Controller {
     public Response battle(String uid) throws JsonProcessingException {
         if (uid == null) {
             return new Response(
-                    HttpStatus.Forbidden,
+                    HttpStatus.Unauthorized,
                     ContentType.TEXT,
                     "Token Missing/Token invalid"
             );
@@ -38,7 +38,6 @@ public class GameController extends Controller {
 
 
         String dataJson = getObjectMapper().writeValueAsString(ergbnisse);
-
 
         return new Response(
                 HttpStatus.OK,
@@ -51,7 +50,7 @@ public class GameController extends Controller {
     public Response getStats(String userId) throws JsonProcessingException {
         if (userId == null) {
             return new Response(
-                    HttpStatus.Forbidden,
+                    HttpStatus.Unauthorized,
                     ContentType.TEXT,
                     "Token Missing/Token invalid"
             );
@@ -75,7 +74,7 @@ public class GameController extends Controller {
 
         if (userId == null) {
             return new Response(
-                    HttpStatus.Forbidden,
+                    HttpStatus.Unauthorized,
                     ContentType.TEXT,
                     "Token Missing/Token invalid"
             );

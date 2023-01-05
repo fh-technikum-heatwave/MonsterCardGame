@@ -25,6 +25,7 @@ public class App implements ServerApp {
     private GameController gameController;
     private DeckController deckController;
     private TradingController tradingController;
+    private FriendController friendController;
 
     private Connection connection;
 
@@ -41,6 +42,8 @@ public class App implements ServerApp {
         var deckDao = new DeckDao(getConnection());
         var gameDao = new GameDao(getConnection());
         var tradingDao = new TradingDao(getConnection());
+        var friendListDao = new FriendListDao(getConnection());
+        var friendRequestDao = new FriendRequestDao(getConnection());
 
         var packageService = new PackageService(packageDao, cardDao, userDao);
         var deckService = new DeckService(deckDao, cardDao);
@@ -48,6 +51,7 @@ public class App implements ServerApp {
         var cardService = new CardService(cardDao);
         var tradingService = new TradingService(tradingDao, cardDao);
         var userService = new UserService(userDao, gameDao);
+        var friendService = new FriendService(friendListDao, userDao, friendRequestDao);
 
 
         packageController = new PackageController(packageService);
@@ -56,6 +60,7 @@ public class App implements ServerApp {
         cardController = new CardController(cardService);
         tradingController = new TradingController(tradingService);
         userController = new UserController(userService);
+        friendController = new FriendController(friendService);
 
 
     }
@@ -82,6 +87,12 @@ public class App implements ServerApp {
                 } else if (request.getPathname().contains("/tradings")) {
                     String token = request.getAuthorizationToken();
                     return getTradingController().getTradingDeals(getUserController().getSession().get(token));
+                } else if (request.getPathname().contains("/friends")) {
+                    String token = request.getAuthorizationToken();
+                    return getFriendController().getMyFriends(getUserController().getSession().get(token));
+                } else if (request.getPathname().contains("/friendrequests")) {
+                    String token = request.getAuthorizationToken();
+                    return getFriendController().getMyFriendRequest(getUserController().getSession().get(token));
                 }
                 break;
             }
@@ -108,13 +119,20 @@ public class App implements ServerApp {
                 } else if (request.getPathname().contains("/tradings")) {
                     String token = request.getAuthorizationToken();
                     return getTradingController().createTrading(getUserController().getSession().get(token), request.getBody());
+                } else if (request.getPathname().contains("/friends/accept")) {
+                    String token = request.getAuthorizationToken();
+                    String friendName = request.getPathname().split("/")[3];
+                    return getFriendController().acceptFriendRequest(getUserController().getSession().get(token), friendName);
+                } else if (request.getPathname().contains("/friends")) {
+                    String token = request.getAuthorizationToken();
+                    String friendName = request.getPathname().split("/")[2];
+                    return getFriendController().sendFriendReuest(getUserController().getSession().get(token), friendName);
                 }
                 break;
             }
 
             case PUT: {
                 if (request.getPathname().contains("/users/")) {
-
 
 
                 } else if (request.getPathname().contains("/decks")) {

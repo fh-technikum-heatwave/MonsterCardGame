@@ -6,10 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.model.card.Card;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
 
 @Getter(AccessLevel.PUBLIC)

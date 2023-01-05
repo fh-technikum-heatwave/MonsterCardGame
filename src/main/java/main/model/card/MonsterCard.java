@@ -1,6 +1,5 @@
 package main.model.card;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
@@ -18,9 +17,6 @@ public class MonsterCard extends Card {
         setMonsterCardWeakness();
     }
 
-    public MonsterCard(String name, int damage, String id) {
-        super(name, damage, id);
-    }
 
     public MonsterCard(Element type, String name, int damage, String weakness, Element typeWeakness, String id,
                        String nameAndType, String packageId, String userId) {

@@ -1,14 +1,12 @@
 package main.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import main.model.card.Card;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
 import main.rest.server.Response;
 import main.rest.services.DeckService;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class DeckController extends Controller {
@@ -25,7 +23,7 @@ public class DeckController extends Controller {
 
         if (userId == null) {
             return new Response(
-                    HttpStatus.Forbidden,
+                    HttpStatus.Unauthorized,
                     ContentType.TEXT,
                     "Token Missing/Token invalid"
             );
@@ -65,7 +63,7 @@ public class DeckController extends Controller {
 
         if (userId == null) {
             return new Response(
-                    HttpStatus.Forbidden,
+                    HttpStatus.Unauthorized,
                     ContentType.TEXT,
                     "Token Missing/Token invalid"
             );

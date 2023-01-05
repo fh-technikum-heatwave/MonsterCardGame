@@ -24,7 +24,7 @@ public class UserService {
 
     public boolean createUser(User user) {
 
-
+        System.out.println(user);
         try {
             userDao.create(user);
             gameDao.create(new Statistik(user.getUsername(), 100, 0, 0, user.getId(), UUID.randomUUID().toString()));
