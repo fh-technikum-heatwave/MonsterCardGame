@@ -11,7 +11,6 @@ import java.util.List;
 public class TradingService {
 
     private TradingDao tradingDao;
-
     private CardDao cardDao;
 
     public TradingService(TradingDao tradingDao, CardDao cardDao) {

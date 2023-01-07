@@ -24,12 +24,10 @@ public class DeckDao implements DAO<Deck> {
     @Override
     public boolean create(Deck deck) throws SQLException {
         String query = "INSERT INTO deck (deckid,userid) VALUES (?,?)";
-
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, deck.getDeckId());
         stmt.setString(2, deck.getUserId());
         return stmt.execute();
-
     }
 
     @Override
@@ -49,7 +47,6 @@ public class DeckDao implements DAO<Deck> {
 
     @Override
     public void delete(String id) throws SQLException {
-
     }
 
     public String getDeckIdByUserId(String userId) throws SQLException {
@@ -57,12 +54,9 @@ public class DeckDao implements DAO<Deck> {
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, userId);
         ResultSet rs = stmt.executeQuery();
-
-
         while (rs.next()) {
             return rs.getString(1);
         }
-
         return null;
     }
 }

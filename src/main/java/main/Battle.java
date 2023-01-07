@@ -36,6 +36,8 @@ public class Battle {
 
         boolean _100Rounds = true;
 
+        List<Round> roundProtocol = new LinkedList<>();
+
         for (int i = 0; i < 100; i++) {
 
 
@@ -51,35 +53,51 @@ public class Battle {
             Card user1Card = u1.getDeck().get(0);
             Card user2Card = u2.getDeck().get(0);
 
+            UserDeckDTO winner = null;
 
-            UserDeckDTO dto;
 
             if (user1Card.getClass().getSimpleName().contains("Spell") &&
                     user2Card.getClass().getSimpleName().contains("Spell")) {
-                elementFight(u1, u2, user1Card, user2Card);
+                winner = elementFight(u1, u2, user1Card, user2Card);
 
             } else {
-                monsterFight(u1, u2, user1Card, user2Card);
+                winner = monsterFight(u1, u2, user1Card, user2Card);
             }
 
+            Round round = new Round();
 
+            String card1Log = user1Card.getName() + " Damage: " + user1Card.getDamage();
+            String card2Log = user2Card.getName() + " Damage: " + user2Card.getDamage();
+            round.addMessage(u1.getUser().getUsername() + " " + card1Log + " vs. " + u2.getUser().getUsername() + " " + card2Log);
+
+
+            if (winner == null) {
+                round.addMessage("Unentschiede keine Karte hat gewonnen");
+            } else if (winner.getUser().getId().equals(u1.getUser().getId())) {
+                round.addMessage("Spieler Karte 1 hat gewonnen");
+            } else {
+                round.addMessage("Spieler karte 2 hat gewonnen");
+            }
+            roundProtocol.add(round);
         }
+
+        System.out.println(roundProtocol.size());
+        System.out.println(u1.getDeck().size());
+        System.out.println(u2.getDeck().size());
+        System.out.println(_100Rounds);
 
         if (_100Rounds) {
-            observer1.setResult(null, null);
-            observer2.setResult(null, null);
+            observer1.setResult(u1, u2, roundProtocol, "draw");
+            observer2.setResult(u1, u2, roundProtocol, "draw");
         } else {
             if (u1.getDeck().size() > u2.getDeck().size()) {
-                observer1.setResult(u1, u2);
-                observer2.setResult(u1, u2);
+                observer1.setResult(u1, u2, roundProtocol, "Du hast gewonnen");
+                observer2.setResult(u1, u2, roundProtocol, "Du hast verloren");
             } else if (u2.getDeck().size() > u1.getDeck().size()) {
-                observer1.setResult(u2, u1);
-                observer2.setResult(u2, u1);
+                observer1.setResult(u2, u1, roundProtocol, "Du hast verloren");
+                observer2.setResult(u2, u1, roundProtocol, "Du hast gewonnen");
             }
-
         }
-        observer1.isFinished(true);
-        observer2.isFinished(true);
     }
 
 
@@ -113,14 +131,16 @@ public class Battle {
 
     private static UserDeckDTO winner(UserDeckDTO u1, UserDeckDTO u2, double damageC1, double damageC2, Card c1, Card c2) {
         if (damageC1 > damageC2) {
+            u1.getDeck().add(c2);
+            u2.getDeck().remove(c2);
             return u1;
         } else if (damageC1 < damageC2) {
+            u2.getDeck().add(c1);
+            u1.getDeck().remove(c1);
             return u2;
         }
         return null;
     }
-
-
 
 
 }

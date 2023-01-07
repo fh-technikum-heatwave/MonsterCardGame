@@ -40,7 +40,7 @@ public class GameService {
     }
 
 
-    public Tuple<UserDeckDTO, UserDeckDTO> battle(String uid) {
+    public Tuple<String, String> battle(String uid) {
 
 
         try {
@@ -53,8 +53,6 @@ public class GameService {
             Observer observer = new Observer(userDTO);
             Battle.registerForBattle(observer);
 
-
-            String output = "";
             Tuple<UserDeckDTO, UserDeckDTO> players = null;
 
             try {
@@ -68,24 +66,28 @@ public class GameService {
             UserDeckDTO winner = players.getWinner();
             UserDeckDTO looser = players.getLooser();
 
-            if (winner == null && looser == null) {
-//                unentschieden
-                return new Tuple<>(null, null, "unentschieden");
-            }
 
+            if (winner.getUser().getId().equals(uid))
+                resetDeckId(winner.getDeck());
+            else
+                resetDeckId(looser.getDeck());
+
+            if (players.getStatus().equals("draw")) {
+//                unentschieden
+                return new Tuple<>(null, null, "unentschieden", players.getLog());
+            }
 
             if (winner.getUser().getId().equals(uid)) {
 
+                for (var c : winner.getDeck()) {
+                    cardDao.updateUserId(c.getId(), winner.getUser().getId());
+                }
 
-//                for (var c : winner.getDeck()) {
-//                    cardDao.updateUserId(c.getId(), winner.getUser().getId());
-//                }
-
-                return new Tuple<>(winner, looser, "Du hast gewonnen");
+                return new Tuple<>(winner.getUser().getUsername(), looser.getUser().getUsername(), "Du hast gewonnen", players.getLog());
             } else {
-                return new Tuple<>(winner, looser, "Du hast verloren");
-            }
+                return new Tuple<>(winner.getUser().getUsername(), looser.getUser().getUsername(), "Du hast verloren", players.getLog());
 
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -107,6 +109,19 @@ public class GameService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    private boolean resetDeckId(List<Card> cards) {
+        for (var c : cards) {
+            try {
+                cardDao.updateDeckIdByCardId(c.getId(), null);
+            } catch (SQLException throwables) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }

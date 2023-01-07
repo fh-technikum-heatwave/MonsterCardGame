@@ -39,6 +39,7 @@ public abstract class Card {
         setName(name);
         setDamage(damage);
         setNameAndType(name.toLowerCase(Locale.ROOT));
+
         if (name.contains("Water")) {
             setType(Element.WATER);
             setTypeWeakness(Element.NORMAL);

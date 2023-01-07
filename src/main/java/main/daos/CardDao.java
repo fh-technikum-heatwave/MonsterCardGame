@@ -109,13 +109,23 @@ public class CardDao implements DAO<Card> {
     }
 
 
-    public int updateDeckID(String cardid, String deckId, String userId) throws SQLException {
+    public int updateDeckID(String cardId, String deckId, String userId) throws SQLException {
         String query = "UPDATE card SET deckid = ? WHERE cardid = ? and ( userid = ? or userid = null)";
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, deckId);
-        stmt.setString(2, cardid);
+        stmt.setString(2, cardId);
         stmt.setString(3, userId);
+        return stmt.executeUpdate();
+    }
+
+    public int updateDeckIdByCardId(String cardId, String newDeckId) throws SQLException {
+        String query = "UPDATE card SET deckid = ? WHERE cardid = ?";
+
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(2, cardId);
+        stmt.setString(1, newDeckId);
+
         return stmt.executeUpdate();
     }
 
@@ -184,9 +194,7 @@ public class CardDao implements DAO<Card> {
         String packageId = rs.getString(8);
         String userID = rs.getString(9);
 
-
         if (name.contains("Spell")) {
-
             c = new SpellCard(type, name, damage, weakness, typeWeakness, cardId, nameAndType, packageId, userID);
         } else {
             c = new MonsterCard(type, name, damage, weakness, typeWeakness, cardId, nameAndType, packageId, userID);

@@ -3,6 +3,7 @@ package main.PublishSubscribe;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import main.Round;
 import main.Tuple.Tuple;
 import main.dtos.UserDeckDTO;
 
@@ -14,9 +15,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Setter(AccessLevel.PRIVATE)
 public class Observer implements Listener {
 
-    public List<UserDeckDTO> list =
-            Collections.synchronizedList(new ArrayList<>());
-
     private UserDeckDTO user;
     private boolean isFinish;
     private BlockingQueue<Tuple<UserDeckDTO, UserDeckDTO>> blockingQueue = new LinkedBlockingQueue(1);
@@ -27,19 +25,14 @@ public class Observer implements Listener {
     }
 
     @Override
-    public void setResult(UserDeckDTO winner, UserDeckDTO looser) {
-        list.add(winner);
-        list.add(looser);
+    public void setResult(UserDeckDTO winner, UserDeckDTO looser, List<Round> log, String status) {
 
         try {
-            blockingQueue.put(new Tuple<>(winner, looser,null));
+            blockingQueue.put(new Tuple<>(winner, looser,status , log));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void isFinished(boolean finish) {
-        isFinish = finish;
-    }
+
 }

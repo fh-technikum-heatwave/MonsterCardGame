@@ -34,10 +34,12 @@ public class GameController extends Controller {
         }
 
 
-        Tuple ergbnisse = gameService.battle(uid);
+        Tuple<String, String> ergbnisse = gameService.battle(uid);
 
 
         String dataJson = getObjectMapper().writeValueAsString(ergbnisse);
+
+        System.out.println(dataJson);
 
         return new Response(
                 HttpStatus.OK,
