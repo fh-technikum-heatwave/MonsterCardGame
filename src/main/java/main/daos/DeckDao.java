@@ -4,11 +4,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.model.Deck;
+import main.model.card.Card;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 @Getter
@@ -59,4 +61,5 @@ public class DeckDao implements DAO<Deck> {
         }
         return null;
     }
+
 }

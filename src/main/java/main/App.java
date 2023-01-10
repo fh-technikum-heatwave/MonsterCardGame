@@ -46,13 +46,14 @@ public class App implements ServerApp {
         var tradingDao = new TradingDao(getConnection());
         var friendListDao = new FriendListDao(getConnection());
         var friendRequestDao = new FriendRequestDao(getConnection());
+        var userProfileDao = new UserProfileDao(getConnection());
 
         var packageService = new PackageService(packageDao, cardDao, userDao);
         var deckService = new DeckService(deckDao, cardDao);
-        var battleService = new GameService(userDao, cardDao, deckDao, gameDao);
+        var battleService = new GameService(userDao, cardDao, deckDao, gameDao,friendListDao);
         var cardService = new CardService(cardDao);
         var tradingService = new TradingService(tradingDao, cardDao);
-        var userService = new UserService(userDao, gameDao);
+        var userService = new UserService(userDao, gameDao, userProfileDao);
         var friendService = new FriendService(friendListDao, userDao, friendRequestDao);
 
 
@@ -110,6 +111,10 @@ public class App implements ServerApp {
                 } else if (request.getPathname().contains("/packages")) {
                     String token = request.getAuthorizationToken();
                     return getPackageController().createPackage(getUserController().getSession().get(token), request.getBody());
+                } else if (request.getPathname().contains("/battles/friend/")) {
+                    String token = request.getAuthorizationToken();
+                    String friendname = request.getPathname().split("/")[2];
+                    return getGameController().battleWithAFriend(getUserController().getSession().get(token), friendname);
                 } else if (request.getPathname().contains("/battles")) {
                     String token = request.getAuthorizationToken();
                     return getGameController().battle(getUserController().getSession().get(token));
@@ -134,8 +139,13 @@ public class App implements ServerApp {
             }
 
             case PUT: {
-                if (request.getPathname().contains("/users/")) {
+                if (request.getPathname().contains("/users")) {
 
+                    String token = request.getAuthorizationToken();
+                    String body = request.getBody();
+                    String username = request.getPathname().split("/")[2];
+                    System.out.println(token);
+                    return getUserController().updateUserProfile(token, username, body);
 
                 } else if (request.getPathname().contains("/decks")) {
                     String token = request.getAuthorizationToken();

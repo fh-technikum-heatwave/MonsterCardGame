@@ -72,7 +72,6 @@ public class CardDao implements DAO<Card> {
 
     @Override
     public void update(Card card) {
-
     }
 
     public List<Card> getCardsOfSpecificPackage(String packageId) throws SQLException {

@@ -33,13 +33,23 @@ public class GameController extends Controller {
             );
         }
 
+        boolean configured = gameService.checkIfDeckIsConfigured(uid);
 
+        if (!configured) {
+            return new Response(
+                    HttpStatus.NO_CONTENT,
+                    ContentType.TEXT,
+                    "Your Deck is not coinfigured"
+            );
+        }
+
+        System.out.println("in battle controller");
         Tuple<String, String> ergbnisse = gameService.battle(uid);
-
 
         String dataJson = getObjectMapper().writeValueAsString(ergbnisse);
 
         System.out.println(dataJson);
+
 
         return new Response(
                 HttpStatus.OK,
@@ -68,6 +78,44 @@ public class GameController extends Controller {
                 ContentType.JSON,
                 "{ \"data\": " + dataJson + ", \"error\": null }"
         );
+    }
+
+
+    public Response battleWithAFriend(String uid, String friendname) throws JsonProcessingException {
+        if (uid == null) {
+            return new Response(
+                    HttpStatus.Unauthorized,
+                    ContentType.TEXT,
+                    "Token Missing/Token invalid"
+            );
+        }
+
+        boolean configured = gameService.checkIfDeckIsConfigured(uid);
+
+        if (!configured) {
+            return new Response(
+                    HttpStatus.NO_CONTENT,
+                    ContentType.TEXT,
+                    "Your Deck is not coinfigured"
+            );
+        }
+
+
+
+        Tuple<String, String> ergbnisse = gameService.battleAgainstAFriend(uid, friendname);
+
+        String dataJson = getObjectMapper().writeValueAsString(ergbnisse);
+
+        System.out.println(dataJson);
+
+
+        return new Response(
+                HttpStatus.OK,
+                ContentType.JSON,
+                "{ \"data\": " + dataJson + ", \"error\": null }"
+        );
+
+
     }
 
 

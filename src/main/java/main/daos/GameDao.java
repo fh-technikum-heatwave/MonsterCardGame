@@ -26,7 +26,7 @@ public class GameDao implements DAO<Statistik> {
 
     @Override
     public boolean create(Statistik statistik) throws SQLException {
-        String query = "INSERT INTO statistik (statistikid,userid,name,wins,losses,elo) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO statistik (statistikid,userid,name,wins,losses,elo,winloseratio) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, statistik.getId());
         stmt.setString(2, statistik.getUserid());
@@ -34,6 +34,7 @@ public class GameDao implements DAO<Statistik> {
         stmt.setInt(4, statistik.getWins());
         stmt.setInt(5, statistik.getLosses());
         stmt.setInt(6, statistik.getElo());
+        stmt.setDouble(7, statistik.getWinloseratio());
         return stmt.execute();
     }
 
@@ -45,7 +46,7 @@ public class GameDao implements DAO<Statistik> {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            var stat = new Statistik(rs.getString("name"), rs.getInt("elo"), rs.getInt("wins"), rs.getInt("losses"), rs.getString("userid"), rs.getString("statistikid"));
+            var stat = new Statistik(rs.getString("name"), rs.getInt("elo"), rs.getInt("wins"), rs.getInt("losses"), rs.getString("userid"), rs.getString("statistikid"), rs.getDouble("winloseratio"), rs.getInt("draw"));
             stats.add(stat);
         }
 
@@ -58,15 +59,22 @@ public class GameDao implements DAO<Statistik> {
     }
 
     @Override
-    public void update(Statistik statistik) {
+    public void update(Statistik statistik) throws SQLException {
+        String query = "UPDATE statistik SET wins=?,losses = ?, winloseratio = ?, elo=?, draw = ? where statistikid = ?";
 
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setInt(1, statistik.getWins());
+        stmt.setInt(2, statistik.getLosses());
+        stmt.setDouble(3, statistik.getWinloseratio());
+        stmt.setInt(4, statistik.getElo());
+        stmt.setInt(5, statistik.getDraw());
+        stmt.setString(6, statistik.getId());
+        stmt.executeUpdate();
     }
 
     @Override
     public void delete(String id) throws SQLException {
-
     }
-
 
 
     public Statistik getByUserId(String userId) throws SQLException {
@@ -77,7 +85,7 @@ public class GameDao implements DAO<Statistik> {
 
         while (rs.next()) {
             return new Statistik(rs.getString("name"), rs.getInt("elo"), rs.getInt("wins"), rs.getInt("losses"),
-                    rs.getString("userid"), rs.getString("statistikid"));
+                    rs.getString("userid"), rs.getString("statistikid"), rs.getDouble("winloseratio"), rs.getInt("draw"));
         }
         return null;
     }

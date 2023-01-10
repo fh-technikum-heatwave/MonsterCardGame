@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Setter(AccessLevel.PRIVATE)
-@Getter(AccessLevel.PRIVATE)
+@Getter(AccessLevel.PUBLIC)
 public class PackageController extends Controller {
     private PackageDao packageDao;
     private PackageService packageService;

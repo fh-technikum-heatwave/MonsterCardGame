@@ -8,6 +8,7 @@ import lombok.Setter;
 import main.daos.GameDao;
 import main.model.User;
 import main.daos.UserDao;
+import main.model.UserProfile;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
 import main.rest.server.Response;
@@ -112,6 +113,50 @@ public class UserController extends Controller {
                     "Invalid username/password provided"
             );
         }
+    }
 
+    public Response updateUserProfile(String token, String username, String body) throws JsonProcessingException {
+
+        System.out.println(token);
+        System.out.println(getSession().get(token));
+        System.out.println(getSession());
+
+        if (getSession().get(token) == null || !token.contains(username)) {
+            return new Response(
+                    HttpStatus.Unauthorized,
+                    ContentType.TEXT,
+                    "Token Missing/Token invalid"
+            );
+        }
+
+
+        User user = userService.getByUsername(username);
+        if (user == null) {
+            return new Response(
+                    HttpStatus.NOT_FOUND,
+                    ContentType.TEXT,
+                    "User does not exist"
+            );
+        }
+
+
+        UserProfile userProfile = getObjectMapper().readValue(body, UserProfile.class);
+
+        boolean worked = userService.updateUserProfile(getSession().get(token), userProfile.getName(), userProfile.getBio(), userProfile.getImage());
+
+        if (worked) {
+            return new Response(
+                    HttpStatus.OK,
+                    ContentType.TEXT,
+                    "Userprofile succssfully updated"
+            );
+        }
+
+
+        return new Response(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                ContentType.TEXT,
+                "Internal Error"
+        );
     }
 }

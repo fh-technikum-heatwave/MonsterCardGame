@@ -19,6 +19,8 @@ public class DeckController extends Controller {
 
     public Response configureDeck(String userId, String body) throws JsonProcessingException {
 
+        System.out.println(userId);
+
         List<String> cardIds = getObjectMapper().readValue(body, List.class);
 
         if (userId == null) {

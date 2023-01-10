@@ -5,13 +5,16 @@ import main.dtos.UserDeckDTO;
 import main.model.card.Card;
 import main.rest.http.Method;
 
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Battle {
 
     private static BlockingQueue<Observer> waiter = new LinkedBlockingQueue<>();
+    private static ConcurrentHashMap<String, Observer> watingForFriend = new ConcurrentHashMap<>();
 
     public static void registerForBattle(Observer observer) {
         waiter.add(observer);
@@ -31,8 +34,23 @@ public class Battle {
         }
     }
 
+    public static void registerForBattleAgainstFriend(Observer observer, String friendname) {
+
+        if (watingForFriend.get(observer.getUser().getUser().getUsername()) != null) {
+            Observer observer1 = observer;
+            Observer observer2 = watingForFriend.get(observer.getUser().getUser().getUsername());
+            watingForFriend.remove(observer.getUser().getUser().getUsername());
+
+            battle(observer1.getUser(), observer2.getUser(), observer1, observer2);
+
+        } else {
+            watingForFriend.put(friendname, observer);
+        }
+    }
+
     private static void battle(UserDeckDTO u1, UserDeckDTO u2, Observer observer1, Observer observer2) {
 
+        System.out.println("in battle -------");
 
         boolean _100Rounds = true;
 

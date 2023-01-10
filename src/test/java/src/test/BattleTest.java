@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,8 +22,8 @@ class BattleTest {
 
     @BeforeEach
     void init() {
-        dto1 = new UserDeckDTO(new User("User1", "Test"), null);
-        dto2 = new UserDeckDTO(new User("User2", "Test"), null);
+        dto1 = new UserDeckDTO(new User("User1", "Test"), new LinkedList<>());
+        dto2 = new UserDeckDTO(new User("User2", "Test"), new LinkedList<>());
     }
 
     private Method getMonsterFightMethod() throws NoSuchMethodException {

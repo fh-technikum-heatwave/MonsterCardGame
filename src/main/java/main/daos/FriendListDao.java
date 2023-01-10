@@ -43,9 +43,7 @@ public class FriendListDao implements DAO<FriendsList> {
 
     @Override
     public FriendsList read(String id) throws SQLException {
-
         return null;
-
     }
 
     public List<FriendsList> readByUsername(String usernmae) throws SQLException {
@@ -68,7 +66,6 @@ public class FriendListDao implements DAO<FriendsList> {
 
     @Override
     public void update(FriendsList friendsList) {
-
     }
 
     public int updateStatus(String userId, String friendname, String status) throws SQLException {
