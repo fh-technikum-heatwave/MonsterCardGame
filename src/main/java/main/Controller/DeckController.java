@@ -19,7 +19,13 @@ public class DeckController extends Controller {
 
     public Response configureDeck(String userId, String body) throws JsonProcessingException {
 
-        System.out.println(userId);
+        if (body.isEmpty()) {
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.TEXT,
+                    "Body missing"
+            );
+        }
 
         List<String> cardIds = getObjectMapper().readValue(body, List.class);
 
@@ -59,7 +65,12 @@ public class DeckController extends Controller {
         );
     }
 
-    public Response getDeck(String userId) throws JsonProcessingException {
+    public Response getDeck(String userId, String format) throws JsonProcessingException {
+        boolean asPlain = false;
+
+        if (format.contains("plain")) {
+            asPlain = true;
+        }
 
         if (userId == null) {
             return new Response(
@@ -79,10 +90,18 @@ public class DeckController extends Controller {
 
         String dataJSON = getObjectMapper().writeValueAsString(card);
 
-        return new Response(
-                httpStatus,
-                ContentType.JSON,
-                "{ \"data\": " + dataJSON + ", \"error\": null }"
-        );
+        if (asPlain) {
+            return new Response(
+                    httpStatus,
+                    ContentType.TEXT,
+                    card.toString()
+            );
+        } else {
+            return new Response(
+                    httpStatus,
+                    ContentType.JSON,
+                    "{ \"data\": " + dataJSON + ", \"error\": null }"
+            );
+        }
     }
 }

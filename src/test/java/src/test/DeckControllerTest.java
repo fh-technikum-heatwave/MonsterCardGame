@@ -57,7 +57,7 @@ class DeckControllerTest {
         String dataJSON = new ObjectMapper().writeValueAsString(cards);
 
 
-        Response response = deckController.getDeck("someid");
+        Response response = deckController.getDeck("someid","");
 
         String s = "{ \"data\": " + dataJSON + ", \"error\": null }";
 

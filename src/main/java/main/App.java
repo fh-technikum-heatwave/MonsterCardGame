@@ -79,8 +79,9 @@ public class App implements ServerApp {
                     String token = request.getAuthorizationToken();
                     return getCardController().getUserCard(getUserController().getSession().get(token));
                 } else if (request.getPathname().contains("/decks")) {
+                    String format = request.getParams();
                     String token = request.getAuthorizationToken();
-                    return deckController.getDeck(getUserController().getSession().get(token));
+                    return deckController.getDeck(getUserController().getSession().get(token), format);
                 } else if (request.getPathname().contains("/stats")) {
                     String token = request.getAuthorizationToken();
                     return gameController.getStats(getUserController().getSession().get(token));

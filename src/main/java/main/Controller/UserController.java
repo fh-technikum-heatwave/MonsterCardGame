@@ -32,6 +32,14 @@ public class UserController extends Controller {
 
     public Response register(String body) throws JsonProcessingException {
 
+        if(body.isEmpty()){
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.TEXT,
+                    "Body missing"
+            );
+        }
+
         User user = getObjectMapper().readValue(body, User.class);
         boolean worked = userService.createUser(user);
 
@@ -91,6 +99,15 @@ public class UserController extends Controller {
     }
 
     public Response loginUser(String body) throws JsonProcessingException {
+
+        if(body.isEmpty()){
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.TEXT,
+                    "Body missing"
+            );
+        }
+
         JsonNode actualObj = getObjectMapper().readTree(body);
         String username = actualObj.get("Username").asText();
         String pw = actualObj.get("Password").asText();
@@ -117,9 +134,13 @@ public class UserController extends Controller {
 
     public Response updateUserProfile(String token, String username, String body) throws JsonProcessingException {
 
-        System.out.println(token);
-        System.out.println(getSession().get(token));
-        System.out.println(getSession());
+        if(body.isEmpty()){
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.TEXT,
+                    "Body missing"
+            );
+        }
 
         if (getSession().get(token) == null || !token.contains(username)) {
             return new Response(

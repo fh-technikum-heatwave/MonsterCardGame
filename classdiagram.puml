@@ -9,18 +9,11 @@ class User{
    -List<Card> cards
    -Deck deck
 
-   +void selectDeck()
-   +void buyPackage()
-   +void tradeCards()
 }
 
 
 class Battle{
 
-    +{static}void battle(User u1, User u2)
-    -void monsterFight()
-    -void spellFights()
-    -void mixedFight()
 }
 
 

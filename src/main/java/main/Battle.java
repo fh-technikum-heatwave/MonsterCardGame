@@ -130,9 +130,7 @@ public class Battle {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 
     private static UserDeckDTO monsterFight(UserDeckDTO u1, UserDeckDTO u2, Card c1, Card c2) {
 

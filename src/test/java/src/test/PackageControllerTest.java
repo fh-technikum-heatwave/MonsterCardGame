@@ -35,7 +35,7 @@ class PackageControllerTest {
     @Test
     void createPackage_UserIsNotAdmin() throws JsonProcessingException {
         when(packageService.getUserById(any(String.class))).thenReturn(new User("altenhof", "1234"));
-        Response response = packageController.createPackage("Some uid", "");
+        Response response = packageController.createPackage("Some uid", "{}");
 
         assertEquals(HttpStatus.Forbidden.getCode(), response.getStatusCode());
         assertEquals("Provided user is not admin", response.getContent());

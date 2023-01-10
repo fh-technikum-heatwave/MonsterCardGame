@@ -18,6 +18,14 @@ public class TradingController extends Controller {
     }
 
     public Response createTrading(String userId, String body) throws JsonProcessingException {
+        if(body.isEmpty()){
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.TEXT,
+                    "Body missing"
+            );
+        }
+
         if (userId == null) {
             return new Response(
                     HttpStatus.Unauthorized,
@@ -146,8 +154,15 @@ public class TradingController extends Controller {
 
     public Response trade(String userId, String myTradingCardId, String tradingId) throws JsonProcessingException {
 
-        myTradingCardId = getObjectMapper().readValue(myTradingCardId, String.class);
+        if(myTradingCardId.isEmpty()){
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.TEXT,
+                    "Body missing"
+            );
+        }
 
+        myTradingCardId = getObjectMapper().readValue(myTradingCardId, String.class);
 
         if (userId == null) {
             return new Response(

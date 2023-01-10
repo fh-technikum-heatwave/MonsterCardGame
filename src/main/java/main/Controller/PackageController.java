@@ -31,6 +31,13 @@ public class PackageController extends Controller {
 
 
     public Response createPackage(String uid, String body) throws JsonProcessingException {
+        if(body.isEmpty()){
+            return new Response(
+                    HttpStatus.BAD_REQUEST,
+                    ContentType.TEXT,
+                    "Body missing"
+            );
+        }
 
         if (uid == null) {
             return new Response(
