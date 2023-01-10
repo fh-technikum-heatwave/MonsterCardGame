@@ -4,12 +4,7 @@ package main.daos;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import main.Element;
-import main.Package;
-import main.User;
-import main.card.Card;
-import main.card.MonsterCard;
-import main.card.SpellCard;
+import main.model.Package;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,14 +24,13 @@ public class PackageDao implements DAO<Package> {
     }
 
     @Override
-    public void create(Package aPackage) throws SQLException {
+    public boolean create(Package aPackage) throws SQLException {
         String query = "INSERT INTO Package(packageid, cost) VALUES (?,?)";
 
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, aPackage.getId());
         stmt.setInt(2, aPackage.getPACKAGE_COST());
-        stmt.execute();
-
+        return stmt.execute();
     }
 
     @Override
@@ -68,44 +62,20 @@ public class PackageDao implements DAO<Package> {
         String query = "DELETE FROM package WHERE packageid = ?";
         PreparedStatement stmt = getConnection().prepareStatement(query);
         stmt.setString(1, id);
-       stmt.execute();
+        stmt.execute();
 
     }
 
 
-    public String getPackageIdFromFirstRow() throws SQLException {
-        String query = "select packageid from package limit 1";
+    public Package getOnePackage() throws SQLException {
+        String query = "select * from package limit 1";
         PreparedStatement stmt = getConnection().prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
 
 
         while (rs.next()) {
-            return rs.getString(1);
+            return new Package(rs.getString(1));
         }
         return null;
-    }
-
-    public Package getPackageWithCards(String id) throws SQLException {
-
-        String query = "select cardid, name, damage, typ, weakness,typeweakness,nameandtype,Card.packageid, userid from Package join card on Package.packageid = Card.packageid where Package.packageid = ?";
-        PreparedStatement stmt = getConnection().prepareStatement(query);
-        stmt.setString(1, id);
-        ResultSet rs = stmt.executeQuery();
-        List<Card> cards = new LinkedList<>();
-
-        while (rs.next()) {
-            String name = rs.getString(2);
-            if (name.contains("Spell")) {
-                cards.add(new SpellCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-                        Element.valueOf(rs.getString(6)), rs.getString(1),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
-            } else {
-                cards.add(new MonsterCard(Element.valueOf(rs.getString(4)), name, rs.getInt(3), rs.getString(5),
-                        Element.valueOf(rs.getString(6)), rs.getString(1),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
-            }
-        }
-
-        return new Package(cards.get(0).getPackageid(), cards);
     }
 }

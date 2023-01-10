@@ -7,9 +7,10 @@ import lombok.Setter;
 public enum HttpStatus {
     OK(200, "OK"),
     CREATED(201, "CREATED"),
+    NO_CONTENT(204, "NO Content"),
     BAD_REQUEST(400, "Bad Request"),
     Unauthorized(401, "Unauthorized"),
-    Forbidden(401, "Forbidden"),
+    Forbidden(403, "Forbidden"),
     NOT_FOUND(404, "Not Found"),
     Conflict(409, "Conflict"),
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");

@@ -38,15 +38,8 @@ public class Request {
 
         try {
             String line = inputStream.readLine();
-            String secondLine = inputStream.readLine();
-
 
             if (line != null) {
-
-                System.out.println(line);
-                if (secondLine.contains("Bearer"))
-                    authorizationToken = getAuthorizationTokenFromInputLine(secondLine);
-
 
                 String[] splitFirstLine = line.split(" ");
                 Boolean hasParams = splitFirstLine[1].contains("?");
@@ -59,6 +52,7 @@ public class Request {
 
 
                 String contentTypeFromInputLine = "";
+                contentLength = 0;
                 while (!line.isEmpty()) {
                     line = inputStream.readLine();
                     if (line.startsWith(CONTENT_LENGTH)) {
@@ -66,6 +60,10 @@ public class Request {
                     }
                     if (line.startsWith(CONTENT_TYPE)) {
                         contentType = getContentTypeFromInputLine(line);
+                    }
+
+                    if (line.startsWith("Authorization:")) {
+                        authorizationToken = getAuthorizationTokenFromInputLine(line);
                     }
                 }
 
