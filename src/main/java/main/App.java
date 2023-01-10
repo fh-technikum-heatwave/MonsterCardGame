@@ -113,7 +113,7 @@ public class App implements ServerApp {
                     return getPackageController().createPackage(getUserController().getSession().get(token), request.getBody());
                 } else if (request.getPathname().contains("/battles/friend/")) {
                     String token = request.getAuthorizationToken();
-                    String friendname = request.getPathname().split("/")[2];
+                    String friendname = request.getPathname().split("/")[3];
                     return getGameController().battleWithAFriend(getUserController().getSession().get(token), friendname);
                 } else if (request.getPathname().contains("/battles")) {
                     String token = request.getAuthorizationToken();

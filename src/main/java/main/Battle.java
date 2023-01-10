@@ -6,6 +6,9 @@ import main.model.card.Card;
 import main.rest.http.Method;
 
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -50,7 +53,6 @@ public class Battle {
 
     private static void battle(UserDeckDTO u1, UserDeckDTO u2, Observer observer1, Observer observer2) {
 
-        System.out.println("in battle -------");
 
         boolean _100Rounds = true;
 
@@ -116,6 +118,19 @@ public class Battle {
                 observer2.setResult(u2, u1, roundProtocol, "Du hast gewonnen");
             }
         }
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("./logoutput/" + UUID.randomUUID());
+            for (var round : roundProtocol) {
+                writer.append(round.toString());
+                writer.append("\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

@@ -31,7 +31,7 @@ public class GameService {
     private static Queue<String> battleWaiter = new LinkedList<>();
 
 
-    public GameService(UserDao userDao, CardDao cardDao, DeckDao deckDao, GameDao gameDao,FriendListDao friendListDao) {
+    public GameService(UserDao userDao, CardDao cardDao, DeckDao deckDao, GameDao gameDao, FriendListDao friendListDao) {
         this.userDao = userDao;
         this.cardDao = cardDao;
         this.deckDao = deckDao;
@@ -39,6 +39,26 @@ public class GameService {
         this.friendListDao = friendListDao;
     }
 
+    public boolean checkIfFriends(String friendname, String myId) {
+        try {
+            User user = userDao.getById(myId);
+            List<FriendsList> friendsLists = friendListDao.readByUsername(user.getUsername());
+
+            for (var friendlist : friendsLists) {
+                System.out.println(friendlist.getUsername2());
+                System.out.println(friendlist.getUsername1());
+                System.out.println(friendname);
+                if (friendlist.getUsername1().equals(friendname) || friendlist.getUsername2().equals(friendname)) {
+                    return true;
+                }
+            }
+
+            return false;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
 
     public boolean checkIfDeckIsConfigured(String userId) {
         String deckId = null;

@@ -90,6 +90,16 @@ public class GameController extends Controller {
             );
         }
 
+        boolean friends = gameService.checkIfFriends(friendname,uid);
+
+        if(!friends){
+            return new Response(
+                    HttpStatus.NOT_ALLOWED,
+                    ContentType.TEXT,
+                    "You cant play against this user since you are not friends"
+            );
+        }
+
         boolean configured = gameService.checkIfDeckIsConfigured(uid);
 
         if (!configured) {

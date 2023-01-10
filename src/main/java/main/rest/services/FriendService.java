@@ -141,11 +141,15 @@ public class FriendService {
     }
 
 
-    public List<FriendsList> getMyFriendList(String username) {
+    public List<FriendsList> getMyFriendList(String userId) {
+
+
+
         List<FriendsList> friendList = new LinkedList<>();
 
         try {
-            friendList = friendListDao.readByUsername(username);
+            User user = userDao.getById(userId);
+            friendList = friendListDao.readByUsername(user.getUsername());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

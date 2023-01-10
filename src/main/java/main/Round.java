@@ -14,7 +14,17 @@ public class Round {
     @JsonAlias({"log"})
     private List<String> message = new LinkedList<>();
 
-    public void addMessage(String message){
+    public void addMessage(String message) {
         this.message.add(message);
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (var m : message) {
+            s += m + "\n";
+        }
+        s += "------------------------------------------";
+        return s;
     }
 }

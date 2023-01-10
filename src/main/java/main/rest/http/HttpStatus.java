@@ -12,6 +12,7 @@ public enum HttpStatus {
     Unauthorized(401, "Unauthorized"),
     Forbidden(403, "Forbidden"),
     NOT_FOUND(404, "Not Found"),
+    NOT_ALLOWED(405,"Not Allowed"),
     Conflict(409, "Conflict"),
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
