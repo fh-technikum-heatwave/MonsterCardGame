@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import main.Factory.ResponseFactory;
 import main.daos.GameDao;
 import main.model.User;
 import main.daos.UserDao;
@@ -30,14 +31,18 @@ public class UserController extends Controller {
         this.userService = userService;
     }
 
+    private boolean isMissingBody(String body) {
+        return body == null || body.isEmpty();
+    }
+
+    private boolean isMissingUser(String userId) {
+        return userId == null;
+    }
+
     public Response register(String body) throws JsonProcessingException {
 
-        if(body.isEmpty()){
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.TEXT,
-                    "Body missing"
-            );
+        if (isMissingBody(body)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.BAD_REQUEST, "Body missing");
         }
 
         User user = getObjectMapper().readValue(body, User.class);
@@ -46,23 +51,11 @@ public class UserController extends Controller {
         System.out.println(worked);
 
         if (worked) {
-            return new Response(
-                    HttpStatus.CREATED,
-                    ContentType.TEXT,
-                    "User Successfully created"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.CREATED, "User Successfully created");
         } else {
-
             String errorMessage = "This user already exists";
-
-            return new Response(
-                    HttpStatus.Conflict,
-                    ContentType.JSON,
-                    "{ \"error\": " + errorMessage + ", \"data\": null }"
-            );
+            return ResponseFactory.buildResponse(ContentType.JSON, HttpStatus.Conflict, errorMessage);
         }
-
-
     }
 
     public Response getUserByUsername(String username, String token) throws JsonProcessingException {
@@ -77,35 +70,18 @@ public class UserController extends Controller {
         } else {
             if (token == null || getSession().get(token) == null ||
                     !getSession().get(token).equals(user.getId())) {
-                return new Response(
-                        HttpStatus.Unauthorized,
-                        ContentType.TEXT,
-                        "Token Missing/Token invalid"
-                );
+                return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
             }
             String userDataJSON = getObjectMapper().writeValueAsString(user);
-            return new Response(
-                    httpStatus,
-                    ContentType.JSON,
-                    "{ \"data\": " + userDataJSON + ", \"error\": null }"
-            );
+            return ResponseFactory.buildResponse(ContentType.JSON, httpStatus, userDataJSON);
         }
-
-        return new Response(
-                httpStatus,
-                ContentType.JSON,
-                "{ \"data\": " + null + ", \"error\": null }"
-        );
+        return ResponseFactory.buildResponse(ContentType.JSON, httpStatus, null);
     }
 
     public Response loginUser(String body) throws JsonProcessingException {
 
-        if(body.isEmpty()){
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.TEXT,
-                    "Body missing"
-            );
+        if (isMissingBody(body)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.BAD_REQUEST, "Body missing");
         }
 
         JsonNode actualObj = getObjectMapper().readTree(body);
@@ -115,69 +91,31 @@ public class UserController extends Controller {
         User user = userService.login(username);
 
         if (user != null && pw.equals(user.getPassword())) {
-
             session.put(username + "-mtcgToken", user.getId());
-
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.TEXT,
-                    username + "-mtcgToken"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.OK, username + "-mtcgToken");
         } else {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Invalid username/password provided"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Invalid username/password provided");
         }
     }
 
     public Response updateUserProfile(String token, String username, String body) throws JsonProcessingException {
-
-        if(body.isEmpty()){
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.TEXT,
-                    "Body missing"
-            );
+        if (isMissingBody(body)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.BAD_REQUEST, "Body missing");
         }
-
         if (getSession().get(token) == null || !token.contains(username)) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
-
-
         User user = userService.getByUsername(username);
         if (user == null) {
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.TEXT,
-                    "User does not exist"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NOT_FOUND, "User does not exist");
         }
 
-
         UserProfile userProfile = getObjectMapper().readValue(body, UserProfile.class);
-
         boolean worked = userService.updateUserProfile(getSession().get(token), userProfile.getName(), userProfile.getBio(), userProfile.getImage());
 
         if (worked) {
-            return new Response(
-                    HttpStatus.OK,
-                    ContentType.TEXT,
-                    "Userprofile succssfully updated"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.OK, "Userprofile successfully updated");
         }
-
-
-        return new Response(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                ContentType.TEXT,
-                "Internal Error"
-        );
+        return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error");
     }
 }

@@ -1,6 +1,7 @@
 package main.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import main.Factory.ResponseFactory;
 import main.model.FriendRequest;
 import main.model.FriendsList;
 import main.model.User;
@@ -19,30 +20,33 @@ public class FriendController extends Controller {
         this.friendService = friendService;
     }
 
+    private boolean isMissingBody(String body) {
+        return body == null || body.isEmpty();
+    }
+
+    private boolean isMissingUser(String userId) {
+        return userId == null;
+    }
+
+
     public Response sendFriendReuest(String userId, String friendname) {
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
+
         }
 
         User friend = friendService.checkIfFriendExists(friendname);
         if (friend == null || friend.getId().equals(userId)) {
-            return new Response(
-                    HttpStatus.Forbidden,
-                    ContentType.TEXT,
-                    "User does not exist or you tried to send a friend request to you"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Forbidden,
+                    "User does not exist or you tried to send a friend request to you");
         }
 
         if (friendService.checkIfFriendRquestExists(userId, friendname)) {
-            return new Response(
-                    HttpStatus.Conflict,
-                    ContentType.TEXT,
-                    "A friend Request was already sent"
-            );
+
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Conflict,
+                    "A friend Request was already sent");
+
         }
 
 
@@ -56,59 +60,45 @@ public class FriendController extends Controller {
             message = "Server Error";
         }
 
-        return new Response(
-                httpStatus,
-                ContentType.TEXT,
-                message
-        );
+        return ResponseFactory.buildResponse(ContentType.TEXT, httpStatus,
+                message);
+
     }
 
 
     public Response acceptFriendRequest(String userId, String friendRequestId) {
 
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized,
+                    "Token Missing/Token invalid");
         }
 
         FriendRequest friendRequest = friendService.getFriendRequestById(friendRequestId);
 
         if (friendRequest == null) {
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.TEXT,
-                    "The provied Id was not found"
-            );
+
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NOT_FOUND,
+                    "The provided Id was not found");
+
         }
 
         if (!friendRequest.getUserid().equals(userId)) {
-            return new Response(
-                    HttpStatus.Forbidden,
-                    ContentType.TEXT,
-                    "You are not allowed to accept the request"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Forbidden,
+                    "You are not allowed to accept the request");
         }
 
         friendService.acceptFriendRequest(userId, friendRequestId);
 
-        return new Response(
-                HttpStatus.OK,
-                ContentType.TEXT,
-                "Friend request accepted"
-        );
+        return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.OK,
+                "Friend request accepted");
+
     }
 
     public Response getMyFriendRequest(String userId) throws JsonProcessingException {
 
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized,
+                    "Token Missing/Token invalid");
         }
 
 
@@ -126,22 +116,17 @@ public class FriendController extends Controller {
             httpStatus = HttpStatus.NO_CONTENT;
         }
 
-        return new Response(
-                httpStatus,
-                ContentType.JSON,
-                "{ \"data\": " + dataJson + ", \"error\": null }"
-        );
+        return ResponseFactory.buildResponse(ContentType.JSON, httpStatus,
+                dataJson);
     }
 
 
     public Response getMyFriends(String userId) throws JsonProcessingException {
 
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized,
+                    "Token Missing/Token invalid");
+
         }
 
 
@@ -154,14 +139,10 @@ public class FriendController extends Controller {
 
         if (friendsLists.size() == 0) {
             httpStatus = HttpStatus.NO_CONTENT;
+
         }
-
-
-        return new Response(
-                httpStatus,
-                ContentType.JSON,
-                "{ \"data\": " + dataJson + ", \"error\": null }"
-        );
+        return ResponseFactory.buildResponse(ContentType.JSON, httpStatus,
+                dataJson);
     }
 
 

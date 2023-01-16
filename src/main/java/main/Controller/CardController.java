@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import main.Factory.ResponseFactory;
 import main.model.card.Card;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
@@ -23,33 +24,26 @@ public class CardController extends Controller {
         setCardService(cardService);
     }
 
+    private boolean isMissingUser(String userId) {
+        return userId == null;
+    }
+
 
     public Response getUserCard(String userID) throws JsonProcessingException {
 
-        if (userID == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userID)) {
+            ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
-
 
         List<Card> card = cardService.getCardsByUserId(userID);
         String dataJSON = getObjectMapper().writeValueAsString(card);
 
         HttpStatus httpStatus = HttpStatus.OK;
 
-        if (card == null ||card.size()==0) {
+        if (card == null || card.size() == 0) {
             httpStatus = HttpStatus.NO_CONTENT;
         }
 
-        return new Response(
-                httpStatus,
-                ContentType.JSON,
-                "{ \"data\": " + dataJSON + ", \"error\": null }"
-        );
-
-
+        return ResponseFactory.buildResponse(ContentType.JSON, httpStatus, dataJSON);
     }
 }

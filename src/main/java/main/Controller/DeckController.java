@@ -1,6 +1,7 @@
 package main.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import main.Factory.ResponseFactory;
 import main.model.card.Card;
 import main.rest.http.ContentType;
 import main.rest.http.HttpStatus;
@@ -10,43 +11,39 @@ import main.rest.services.DeckService;
 import java.util.List;
 
 public class DeckController extends Controller {
-    private DeckService deckService;
+    private final DeckService deckService;
 
     public DeckController(DeckService deckService) {
         this.deckService = deckService;
     }
 
+    private boolean isMissingBody(String body) {
+        return body == null || body.isEmpty();
+    }
+
+    private boolean isMissingUser(String userId) {
+        return userId == null;
+    }
+
 
     public Response configureDeck(String userId, String body) throws JsonProcessingException {
 
-        if (body.isEmpty()) {
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.TEXT,
-                    "Body missing"
-            );
+        if (isMissingBody(body)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.BAD_REQUEST, "Body missing");
         }
 
         List<String> cardIds = getObjectMapper().readValue(body, List.class);
 
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
 
         if (cardIds.size() != 4) {
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.TEXT,
-                    "The provided deck did not include the required amount of cards"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.BAD_REQUEST,
+                    "The provided deck did not include the required amount of cards");
         }
 
         boolean worked = deckService.configureDeck(userId, cardIds);
-
 
         String message = "";
         HttpStatus httpStatus = HttpStatus.OK;
@@ -58,11 +55,8 @@ public class DeckController extends Controller {
             httpStatus = HttpStatus.Forbidden;
         }
 
-        return new Response(
-                httpStatus,
-                ContentType.TEXT,
-                message
-        );
+        return ResponseFactory.buildResponse(ContentType.TEXT, httpStatus, message);
+
     }
 
     public Response getDeck(String userId, String format) throws JsonProcessingException {
@@ -72,14 +66,9 @@ public class DeckController extends Controller {
             asPlain = true;
         }
 
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT,HttpStatus.Unauthorized,"Token Missing/Token invalid");
         }
-
 
         List<Card> card = deckService.getDeck(userId);
         HttpStatus httpStatus = HttpStatus.OK;
@@ -91,17 +80,9 @@ public class DeckController extends Controller {
         String dataJSON = getObjectMapper().writeValueAsString(card);
 
         if (asPlain) {
-            return new Response(
-                    httpStatus,
-                    ContentType.TEXT,
-                    card.toString()
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT,httpStatus,card.toString());
         } else {
-            return new Response(
-                    httpStatus,
-                    ContentType.JSON,
-                    "{ \"data\": " + dataJSON + ", \"error\": null }"
-            );
+            return ResponseFactory.buildResponse(ContentType.JSON,httpStatus,dataJSON);
         }
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import main.Factory.ResponseFactory;
 import main.Tuple.Tuple;
 import main.model.Statistik;
 import main.rest.http.ContentType;
@@ -23,24 +24,29 @@ public class GameController extends Controller {
         this.gameService = gameService;
     }
 
+    private boolean isMissingBody(String body) {
+        return body == null || body.isEmpty();
+    }
+
+    private boolean isMissingUser(String userId) {
+        return userId == null;
+    }
+
 
     public Response battle(String uid) throws JsonProcessingException {
-        if (uid == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(uid)) {
+
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized,
+                    "Token Missing/Token invalid");
         }
 
         boolean configured = gameService.checkIfDeckIsConfigured(uid);
 
         if (!configured) {
-            return new Response(
-                    HttpStatus.NO_CONTENT,
-                    ContentType.TEXT,
-                    "Your Deck is not coinfigured"
-            );
+
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NO_CONTENT,
+                    "Your Deck is not configured");
+
         }
 
         System.out.println("in battle controller");
@@ -48,107 +54,61 @@ public class GameController extends Controller {
 
         String dataJson = getObjectMapper().writeValueAsString(ergbnisse);
 
-        System.out.println(dataJson);
-
-
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + dataJson + ", \"error\": null }"
-        );
+        return ResponseFactory.buildResponse(ContentType.JSON, HttpStatus.OK, dataJson);
     }
 
 
     public Response getStats(String userId) throws JsonProcessingException {
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
 
 
         Statistik statistik = gameService.getStats(userId);
 
         String dataJson = getObjectMapper().writeValueAsString(statistik);
-
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + dataJson + ", \"error\": null }"
-        );
+        return ResponseFactory.buildResponse(ContentType.JSON, HttpStatus.OK, dataJson);
     }
 
 
     public Response battleWithAFriend(String uid, String friendname) throws JsonProcessingException {
-        if (uid == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(uid)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
 
-        boolean friends = gameService.checkIfFriends(friendname,uid);
+        boolean friends = gameService.checkIfFriends(friendname, uid);
 
-        if(!friends){
-            return new Response(
-                    HttpStatus.NOT_ALLOWED,
-                    ContentType.TEXT,
-                    "You cant play against this user since you are not friends"
-            );
+        if (!friends) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NOT_ALLOWED,
+                    "You cant play against this user since you are not friends");
         }
 
         boolean configured = gameService.checkIfDeckIsConfigured(uid);
 
         if (!configured) {
-            return new Response(
-                    HttpStatus.NO_CONTENT,
-                    ContentType.TEXT,
-                    "Your Deck is not coinfigured"
-            );
-        }
 
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NO_CONTENT, "Your Deck is not configured");
+        }
 
 
         Tuple<String, String> ergbnisse = gameService.battleAgainstAFriend(uid, friendname);
 
         String dataJson = getObjectMapper().writeValueAsString(ergbnisse);
 
-        System.out.println(dataJson);
-
-
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + dataJson + ", \"error\": null }"
-        );
-
-
+        return ResponseFactory.buildResponse(ContentType.JSON, HttpStatus.OK, dataJson);
     }
 
 
     public Response getScores(String userId) throws JsonProcessingException {
         System.out.println(userId);
 
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
-
 
         List<Statistik> scores = gameService.getScores();
 
         String dataJson = getObjectMapper().writeValueAsString(scores);
-
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + dataJson + ", \"error\": null }"
-        );
+        return ResponseFactory.buildResponse(ContentType.JSON, HttpStatus.OK, dataJson);
     }
 }

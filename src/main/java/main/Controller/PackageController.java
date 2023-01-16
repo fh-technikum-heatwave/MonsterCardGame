@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import main.Factory.ResponseFactory;
 import main.daos.PackageDao;
 import main.model.User;
 import main.model.card.Card;
@@ -29,33 +30,28 @@ public class PackageController extends Controller {
         setPackageService(packageService);
     }
 
+    private boolean isMissingBody(String body) {
+        return body == null || body.isEmpty();
+    }
+
+    private boolean isMissingUser(String userId) {
+        return userId == null;
+    }
 
     public Response createPackage(String uid, String body) throws JsonProcessingException {
-        if(body.isEmpty()){
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.TEXT,
-                    "Body missing"
-            );
+        if (isMissingBody(body)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.BAD_REQUEST, "Body missing");
         }
 
-        if (uid == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(uid)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
 
         User user = packageService.getUserById(uid);
 
         System.out.println(user);
         if (user == null || !user.getUsername().equals("admin")) {
-            return new Response(
-                    HttpStatus.Forbidden,
-                    ContentType.TEXT,
-                    "Provided user is not admin"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Forbidden, "Provided user is not admin");
         }
 
         List<Card> cards = new LinkedList<>();
@@ -86,39 +82,22 @@ public class PackageController extends Controller {
             message = "At least one card in the packages already exists";
         }
 
-        return new Response(
-                status,
-                ContentType.TEXT,
-                message
-        );
-
+        return ResponseFactory.buildResponse(ContentType.TEXT, status, message);
     }
 
 
     public Response buyPackage(String userId) throws JsonProcessingException {
 
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
 
         if (!getPackageService().checkForPackage()) {
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.TEXT,
-                    "No packages for buying available"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NOT_FOUND, "No packages for buying available");
         }
 
         if (!getPackageService().checkUserMoney(userId)) {
-            return new Response(
-                    HttpStatus.Forbidden,
-                    ContentType.TEXT,
-                    "Not enough money for buying"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Forbidden, "Not enough money for buying");
         }
 
         List<Card> cards = getPackageService().acquirePackage(userId);
@@ -129,11 +108,8 @@ public class PackageController extends Controller {
             httpStatus = HttpStatus.NOT_FOUND;
         }
 
-        return new Response(
-                httpStatus,
-                ContentType.JSON,
-                "{ \"data\": " + dataJson + ", \"error\": null }"
-        );
+
+        return ResponseFactory.buildResponse(ContentType.JSON, httpStatus, dataJson);
     }
 
 

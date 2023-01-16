@@ -1,6 +1,7 @@
 package main.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import main.Factory.ResponseFactory;
 import main.model.Trading;
 import main.model.card.Card;
 import main.rest.http.ContentType;
@@ -11,27 +12,28 @@ import main.rest.services.TradingService;
 import java.util.List;
 
 public class TradingController extends Controller {
-    private TradingService tradingService;
+    private final TradingService tradingService;
 
     public TradingController(TradingService tradingService) {
         this.tradingService = tradingService;
     }
 
+    private boolean isMissingBody(String body) {
+        return body == null || body.isEmpty();
+    }
+
+    private boolean isMissingUser(String userId) {
+        return userId == null;
+    }
+
     public Response createTrading(String userId, String body) throws JsonProcessingException {
-        if(body.isEmpty()){
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.TEXT,
-                    "Body missing"
-            );
+        if (isMissingBody(body)) {
+
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.BAD_REQUEST, "Body missing");
         }
 
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
 
         Trading trading = getObjectMapper().readValue(body, Trading.class);
@@ -40,22 +42,16 @@ public class TradingController extends Controller {
 
 
         if (c != null) {
-            return new Response(
-                    HttpStatus.Forbidden,
-                    ContentType.TEXT,
-                    "The deal contains a card that is not owned by the user or locked in the deck."
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Forbidden,
+                    "The deal contains a card that is not owned by the user or locked in the deck");
+
         }
 
         boolean exists = tradingService.checkIfIdExists(trading.getId());
 
         if (exists) {
-
-            return new Response(
-                    HttpStatus.Conflict,
-                    ContentType.TEXT,
-                    "A deal with this deal ID already exists."
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Conflict,
+                    "A deal with this deal ID already exists.");
         }
 
         HttpStatus httpStatus = HttpStatus.CREATED;
@@ -65,72 +61,44 @@ public class TradingController extends Controller {
             message = "Internal Server Error";
         }
 
-        return new Response(
-                httpStatus,
-                ContentType.TEXT,
-                message
-        );
+        return ResponseFactory.buildResponse(ContentType.TEXT, httpStatus, message);
     }
 
 
     public Response getTradingDeals(String userId) throws JsonProcessingException {
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
 
 
         List<Trading> tradingList = tradingService.getAllTrades();
 
         if (tradingList == null || tradingList.size() == 0) {
-            return new Response(
-                    HttpStatus.NO_CONTENT,
-                    ContentType.TEXT,
-                    "No Trading deals available"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NO_CONTENT, "No Trading deals available");
         }
 
         String dataJson = getObjectMapper().writeValueAsString(tradingList);
 
-        return new Response(
-                HttpStatus.OK,
-                ContentType.JSON,
-                "{ \"data\": " + dataJson + ", \"error\": null }"
-        );
+        return ResponseFactory.buildResponse(ContentType.JSON, HttpStatus.OK, dataJson);
     }
 
 
     public Response deleteTrading(String userId, String tradingId) {
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
 
         boolean exists = tradingService.checkIfIdExists(tradingId);
 
         if (!exists) {
-
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.TEXT,
-                    "The provided deal ID was not found."
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NOT_FOUND, "The provided deal ID was not found.");
         }
 
         Card c = tradingService.checkIfCardIsLocked(userId, tradingId);
 
         if (c != null) {
-            return new Response(
-                    HttpStatus.Forbidden,
-                    ContentType.TEXT,
-                    "The deal contains a card that is not owned by the user"
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Forbidden,
+                    "The deal contains a card that is not owned by the user");
         }
 
 
@@ -144,54 +112,35 @@ public class TradingController extends Controller {
             message = "Internal Error";
         }
 
-        return new Response(
-                httpStatus,
-                ContentType.TEXT,
-                message
-        );
+        return ResponseFactory.buildResponse(ContentType.TEXT, httpStatus, message);
 
     }
 
     public Response trade(String userId, String myTradingCardId, String tradingId) throws JsonProcessingException {
 
-        if(myTradingCardId.isEmpty()){
-            return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.TEXT,
-                    "Body missing"
-            );
+        if (isMissingBody(tradingId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.BAD_REQUEST, "Body missing");
         }
 
         myTradingCardId = getObjectMapper().readValue(myTradingCardId, String.class);
 
-        if (userId == null) {
-            return new Response(
-                    HttpStatus.Unauthorized,
-                    ContentType.TEXT,
-                    "Token Missing/Token invalid"
-            );
+        if (isMissingUser(userId)) {
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Unauthorized, "Token Missing/Token invalid");
         }
 
 
         Card c = tradingService.checkIfCardIsLocked(userId, myTradingCardId);
 
         if (c != null) {
-            return new Response(
-                    HttpStatus.Forbidden,
-                    ContentType.TEXT,
-                    "The deal contains a card that is not owned by the user or locked in the deck."
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.Forbidden,
+                    "The deal contains a card that is not owned by the user or locked in the deck.");
         }
 
         boolean exists = tradingService.checkIfIdExists(tradingId);
 
         if (!exists) {
-
-            return new Response(
-                    HttpStatus.NOT_FOUND,
-                    ContentType.TEXT,
-                    "The provided deal ID was not found."
-            );
+            return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NOT_FOUND,
+                    "The provided deal ID was not found.");
         }
 
         boolean worked = tradingService.trade(userId, tradingId, myTradingCardId);
@@ -203,11 +152,6 @@ public class TradingController extends Controller {
             httpStatus = HttpStatus.Forbidden;
             message = "Requirements are not met (Type, MinimumDamage) or you tried to trade with yourself";
         }
-
-        return new Response(
-                httpStatus,
-                ContentType.TEXT,
-                message
-        );
+        return ResponseFactory.buildResponse(ContentType.TEXT, httpStatus, message);
     }
 }
