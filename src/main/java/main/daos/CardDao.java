@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import main.Element;
+import main.Factory.CardFactory;
 import main.model.card.Card;
 import main.model.card.MonsterCard;
 import main.model.card.SpellCard;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
-public class CardDao implements DAO<Card> {
+public class CardDao implements DAO<Card>, User {
 
     private Connection connection;
 
@@ -50,7 +51,7 @@ public class CardDao implements DAO<Card> {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            cards.add(createCard(rs));
+            cards.add(CardFactory.createCard(rs));
         }
 
         return cards;
@@ -64,9 +65,8 @@ public class CardDao implements DAO<Card> {
         stmt.setString(1, cardId);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            return createCard(rs);
+            return CardFactory.createCard(rs);
         }
-
         return null;
     }
 
@@ -83,7 +83,7 @@ public class CardDao implements DAO<Card> {
 
         while (rs.next()) {
 
-            cards.add(createCard(rs));
+            cards.add(CardFactory.createCard(rs));
         }
         return cards;
     }
@@ -145,11 +145,13 @@ public class CardDao implements DAO<Card> {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            cards.add(createCard(rs));
+            cards.add(CardFactory.createCard(rs));
         }
 
         return cards;
     }
+
+
 
     public List<Card> getByUserID(String userID) throws SQLException {
         List<Card> cards = new LinkedList<>();
@@ -159,11 +161,28 @@ public class CardDao implements DAO<Card> {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            cards.add(createCard(rs));
+            cards.add(CardFactory.createCard(rs));
         }
 
         return cards;
     }
+
+    @Override
+    public List<Card> getByUserId(String userId) throws SQLException {
+        List<Card> cards = new LinkedList<>();
+        String query = "select * from card where userid = ?";
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+        stmt.setString(1, userId);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            cards.add(CardFactory.createCard(rs));
+        }
+
+        return cards;
+    }
+
+
 
     public Card getCardsByUserIdAndCheckIfLocked(String userId, String cardId) throws SQLException {
         String query = "select * from card where userid = ? and cardid = ? and deckid = null";
@@ -174,31 +193,9 @@ public class CardDao implements DAO<Card> {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            return createCard(rs);
+            return CardFactory.createCard(rs);
         }
 
         return null;
     }
-
-
-    private Card createCard(ResultSet rs) throws SQLException {
-        Card c;
-        String cardId = rs.getString(1);
-        String name = rs.getString(2);
-        int damage = rs.getInt(3);
-        Element type = Element.valueOf(rs.getString(4));
-        String weakness = rs.getString(5);
-        Element typeWeakness = Element.valueOf(rs.getString(6));
-        String nameAndType = rs.getString(7);
-        String packageId = rs.getString(8);
-        String userID = rs.getString(9);
-
-        if (name.contains("Spell")) {
-            c = new SpellCard(type, name, damage, weakness, typeWeakness, cardId, nameAndType, packageId, userID);
-        } else {
-            c = new MonsterCard(type, name, damage, weakness, typeWeakness, cardId, nameAndType, packageId, userID);
-        }
-        return c;
-    }
-
 }

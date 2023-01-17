@@ -156,18 +156,14 @@ public class App implements ServerApp {
                 break;
             }
 
-
             case DELETE: {
                 if (request.getPathname().contains("/tradings/")) {
                     String tradingId = request.getPathname().split("/")[2];
                     String token = request.getAuthorizationToken();
                     return tradingController.deleteTrading(userController.getSession().get(token), tradingId);
                 }
-
                 break;
             }
-
-
             default:
                 break;
         }

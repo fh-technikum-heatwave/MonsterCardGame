@@ -109,7 +109,6 @@ public class UserController extends Controller {
         if (user == null) {
             return ResponseFactory.buildResponse(ContentType.TEXT, HttpStatus.NOT_FOUND, "User does not exist");
         }
-
         UserProfile userProfile = getObjectMapper().readValue(body, UserProfile.class);
         boolean worked = userService.updateUserProfile(getSession().get(token), userProfile.getName(), userProfile.getBio(), userProfile.getImage());
 
